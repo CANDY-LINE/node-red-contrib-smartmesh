@@ -1,0 +1,73 @@
+{
+  "name": "node-red-contrib-smartmesh",
+  "version": "0.1.0",
+  "description": "Node-RED nodes for SmartMesh(R) USB Manager",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CANDY-LINE/node-red-contrib-smartmesh.git"
+  },
+  "author": "Daisuke Baba <baba.daisuke@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/CANDY-LINE/node-red-contrib-smartmesh/issues"
+  },
+  "scripts": {
+    "build": "./scripts/install_smartmeshsdk.sh && gulp build",
+    "test": "gulp test",
+    "clean": "gulp clean",
+    "preuninstall": "./scripts/uninstall_smartmeshsdk.sh",
+    "prepublish": "./scripts/install_smartmeshsdk.sh && gulp build"
+  },
+  "os": [
+    "!win32"
+  ],
+  "homepage": "https://github.com/CANDY-LINE/node-red-contrib-smartmesh#readme",
+  "keywords": [
+    "smartmesh",
+    "dust networks",
+    "Analog Devices",
+    "Raspberry Pi",
+    "CANDY RED",
+    "CANDY EGG"
+  ],
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-minify": "^0.3.0",
+    "chai": "^4.1.2",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^3.9.3",
+    "gulp-cli": "^2.0.1",
+    "gulp-header": "^2.0.5",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-jshint": "^2.1.0",
+    "gulp-less": "^4.0.0",
+    "gulp-manifest": "^0.1.1",
+    "gulp-mocha": "^5.0.0",
+    "gulp-noop": "^1.0.0",
+    "gulp-resources": "^0.5.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0",
+    "gulp-yaml": "^1.0.1",
+    "jshint": "^2.9.5",
+    "jshint-stylish": "^2.2.1",
+    "mocha": "^5.0.4",
+    "sinon": "^4.4.6",
+    "supertest": "^3.0.0"
+  },
+  "dependencies": {
+    "serialport": "^6.1.1",
+    "source-map-support": "^0.5.4"
+  },
+  "node-red": {
+    "nodes": {
+      "smartmesh": "dist/smartmesh.js"
+    }
+  }
+}
