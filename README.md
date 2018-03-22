@@ -50,6 +50,15 @@ $ NODE_ENV=development npm run build
 $ NODE_ENV=development npm pack
 ```
 
+### Shrinkwrap
+
+```
+$ rm -fr node_modules; \
+  rm -f npm-shrinkwrap.json; \
+  nodenv local 8.10.0; \
+  npm install;npm run freeze
+```
+
 # Revision History
 
 * 0.1.0
