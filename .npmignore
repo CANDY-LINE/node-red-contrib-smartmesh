@@ -12,6 +12,7 @@ gulpfile.js
 *.tgz
 *.zip
 *.log
+*.pyc
 .dockerignore
 .node-version
 *.test.js
@@ -19,4 +20,6 @@ gulpfile.js
 deps/smartmeshsdk/ApiExplorer.egg-info
 deps/smartmeshsdk/build
 deps/smartmeshsdk/dist
+deps/smartmeshsdk/installed_files.txt
+deps/smartmeshsdk/python_exec_name
 installed_files.txt
