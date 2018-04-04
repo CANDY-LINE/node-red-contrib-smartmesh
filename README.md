@@ -21,7 +21,6 @@ When you have trouble with connecting your BLE devices, reset your HCI socket by
 
 ```
 # STOP Node-RED first!!
-sudo hciconfig hci0 reset
 ```
 And restart Node-RED.
 
