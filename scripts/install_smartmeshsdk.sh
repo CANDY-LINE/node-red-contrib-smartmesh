@@ -36,6 +36,7 @@ function install_smartmeshsdk {
   if [ -f ./deps/smartmeshsdk/PKG-INFO ]; then
     if `grep ${SDK_VERSION} ./deps/smartmeshsdk/PKG-INFO > /dev/null`; then
       if [ -f ./deps/smartmeshsdk/installed_files.txt ]; then
+        log "[INFO] SmartMesh SDK is alredy installed"
         exit 0
       else
         log "[INFO] SmartMesh SDK is alredy downloaded"
@@ -52,6 +53,7 @@ function install_smartmeshsdk {
     test_connectivity
     curl -sSL https://github.com/dustcloud/smartmeshsdk/archive/REL-${SDK_VERSION}.tar.gz | tar zx
     mv smartmeshsdk-REL-${SDK_VERSION} smartmeshsdk
+    log "[INFO] SmartMesh SDK has been downloaded"
   fi
   cd smartmeshsdk
   echo `which ${PYTHON2}` > ./python_exec_name # Used by src/smartmesh-common.js
