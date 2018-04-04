@@ -24,7 +24,7 @@ import path from 'path';
 import { EventEmitter } from 'events';
 
 const DEPS_PYTHON_PATH = path.resolve(path.join(__dirname, '..', 'deps', 'python'));
-const PYTHON_EXEC_NAME_PATH = path.join(DEPS_PYTHON_PATH, 'ptyhon_exec_name');
+const PYTHON_EXEC_NAME_PATH = path.join(DEPS_PYTHON_PATH, 'python_exec_name');
 const PYTHON_EXEC = (fs.existsSync(PYTHON_EXEC_NAME_PATH) ? fs.readdirSync(PYTHON_EXEC_NAME_PATH) : 'python');
 
 export class SmartMeshClientProxy {

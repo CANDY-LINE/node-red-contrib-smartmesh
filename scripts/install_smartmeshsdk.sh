@@ -54,7 +54,7 @@ function install_smartmeshsdk {
     mv smartmeshsdk-REL-${SDK_VERSION} smartmeshsdk
   fi
   cd smartmeshsdk
-  echo `which ${PYTHON2}` > ./ptyhon_exec_name # Used by src/smartmesh-common.js
+  echo `which ${PYTHON2}` > ./python_exec_name # Used by src/smartmesh-common.js
   ${PYTHON2} ./setup.py install --record ./installed_files.txt
 }
 
