@@ -2,9 +2,9 @@
 smartmesh:
   label:
     serialport: API Port
-    enabled: Enabled
+    enabled: Enable this Manager
     smartMeshManager: Manager
-    subscriptionType: Subscription Event Type
+    subscriptionType: Subscribe
     redirectSmartMeshManagerLog: Redirect Manager Error
   subscriptionType:
     all: All Events
