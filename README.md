@@ -6,7 +6,7 @@ node-red-contrib-smartmesh
 
 # ALPHA RELEASE
 
-A Node-RED node for SmartMesh® USB Manager.
+Node-RED nodes for Analog Devices' SmartMesh® IP Motes and Manager
 
 # Prerequisites
 

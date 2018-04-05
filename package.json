@@ -1,7 +1,7 @@
 {
   "name": "node-red-contrib-smartmesh",
   "version": "0.1.0",
-  "description": "Node-RED nodes for SmartMesh(R) USB Manager",
+  "description": "Node-RED nodes for Analog Devices' SmartMesh® IP Motes and Manager",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
