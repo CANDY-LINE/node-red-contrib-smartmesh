@@ -1,6 +1,11 @@
 node-red-contrib-smartmesh
 ===
 
+[![GitHub release](https://img.shields.io/github/release/CANDY-LINE/node-red-contrib-smartmesh.svg)](https://github.com/CANDY-LINE/node-red-contrib-smartmesh/releases/latest)
+[![master Build Status](https://travis-ci.org/CANDY-LINE/node-red-contrib-smartmesh.svg?branch=master)](https://travis-ci.org/CANDY-LINE/node-red-contrib-smartmesh/)
+
+# ALPHA RELEASE
+
 A Node-RED node for SmartMesh® USB Manager.
 
 # Prerequisites
