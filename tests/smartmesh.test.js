@@ -55,7 +55,7 @@ describe('smartmesh node', () => {
     it('should have valid Node-RED plugin classes', () => {
       assert.isNotNull(RED);
       smartmeshModule(RED);
-      assert.isTrue(RED.nodes.registerType.withArgs('SmartMesh', sinon.match.any).calledOnce);
+      assert.isTrue(RED.nodes.registerType.withArgs('SmartMesh manager', sinon.match.any).calledOnce);
       assert.isTrue(RED.nodes.registerType.withArgs('SmartMesh in', sinon.match.any).calledOnce);
       assert.isTrue(RED.nodes.registerType.withArgs('SmartMesh out', sinon.match.any).calledOnce);
     });
