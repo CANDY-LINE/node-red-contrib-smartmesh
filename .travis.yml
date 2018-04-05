@@ -18,5 +18,5 @@ install:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then export CXX=g++-4.8; fi
   - $CXX --version
   - sudo pip install pyserial
+  - sudo ./scripts/install_smartmeshsdk.sh
   - npm install --unsafe-perm
-  - npm install
