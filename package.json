@@ -15,6 +15,7 @@
     "build": "./scripts/install_smartmeshsdk.sh && gulp build",
     "test": "gulp test",
     "clean": "gulp clean",
+    "preinstall": "./scripts/install_smartmeshsdk.sh",
     "preuninstall": "./scripts/uninstall_smartmeshsdk.sh",
     "prepublish": "./scripts/install_smartmeshsdk.sh && gulp build",
     "freeze": "npm prune && npm shrinkwrap --only=prod"
