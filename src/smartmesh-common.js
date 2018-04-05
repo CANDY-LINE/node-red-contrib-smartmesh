@@ -88,9 +88,25 @@ export class SmartMeshClientProxy {
     );
     this.bus.emit('connected');
     this.cproc.on('exit', (code) => {
-      this.log(`Process Exit: pid => ${this.cproc.pid}, code => ${code}`);
+      let message = '';
+      switch (code) {
+        case 2:
+          message = 'I/O Error';
+          break;
+        case 4:
+          message = 'Installation Error. PySerial seems to be missing.';
+          this.bus.emit('error-event', {
+            event: 'error',
+            message: message
+          });
+          break;
+        case 16:
+          message = 'Disconnected by a remote mote';
+          break;
+      }
+      this.log(`Process Exit: pid => ${this.cproc.pid}, code => ${code}: ${message}`);
       this.cproc = null;
-      if (code) {
+      if (code && code !== 16) {
         this.bus.emit('error');
       } else {
         this.bus.emit('disconnected');
