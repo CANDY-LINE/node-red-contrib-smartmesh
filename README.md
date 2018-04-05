@@ -3,6 +3,11 @@ node-red-contrib-smartmesh
 
 A Node-RED node for SmartMesh® USB Manager.
 
+# Prerequisites
+
+1. Python 2.7 (Python 2.6/3.x are NOT supported)
+1. PySerial 3.4+
+
 # How to install
 
 For Windows users, use Docker or other Linux box VM to start Node-RED in order to install this node.
@@ -11,6 +16,7 @@ For Windows users, use Docker or other Linux box VM to start Node-RED in order t
 
 Run the following commands:
 ```
+sudo pip install pyserial
 cd ~/.node-red
 npm install node-red-contrib-smartmesh
 ```
@@ -28,6 +34,7 @@ And restart Node-RED.
 
 Run the following commands:
 ```
+sudo pip install pyserial
 cd $(npm -g root)/candy-red
 sudo npm install --unsafe-perm node-red-contrib-smartmesh
 ```
