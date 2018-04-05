@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - 6.13
   - 8.10
+python:
+  - 2.7
 
 addons:
   apt:
@@ -9,12 +11,12 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
-    - bluez
 
 sudo: require
 
 install:
   - if [[ $TRAVIS_OS_NAME == "linux" ]]; then export CXX=g++-4.8; fi
   - $CXX --version
+  - sudo pip install pyserial
   - npm install --unsafe-perm
   - npm install

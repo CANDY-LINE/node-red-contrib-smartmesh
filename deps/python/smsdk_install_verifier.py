@@ -15,6 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import sys
 from SmartMeshSDK.utils import SmsdkInstallVerifier
 
 (goodToGo, reason) = SmsdkInstallVerifier.verifyComponents(
@@ -25,7 +26,6 @@ from SmartMeshSDK.utils import SmsdkInstallVerifier
 )
 
 if not goodToGo:
-    print "Your installation does not allow this application to run:\n"
-    print reason
-    raw_input("Press any button to exit")
-    sys.exit(1)
+    print("Your installation does not allow this application to run:\n")
+    print(reason)
+    sys.exit(4)

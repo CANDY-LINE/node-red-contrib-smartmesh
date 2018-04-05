@@ -1,7 +1,17 @@
 node-red-contrib-smartmesh
 ===
 
-A Node-RED node for SmartMesh® USB Manager.
+[![GitHub release](https://img.shields.io/github/release/CANDY-LINE/node-red-contrib-smartmesh.svg)](https://github.com/CANDY-LINE/node-red-contrib-smartmesh/releases/latest)
+[![master Build Status](https://travis-ci.org/CANDY-LINE/node-red-contrib-smartmesh.svg?branch=master)](https://travis-ci.org/CANDY-LINE/node-red-contrib-smartmesh/)
+
+# ALPHA RELEASE
+
+Node-RED nodes for Analog Devices' SmartMesh® IP Motes and Manager
+
+# Prerequisites
+
+1. Python 2.7 (Python 2.6/3.x are NOT supported)
+1. PySerial 3.4+
 
 # How to install
 
@@ -11,6 +21,7 @@ For Windows users, use Docker or other Linux box VM to start Node-RED in order t
 
 Run the following commands:
 ```
+sudo pip install pyserial
 cd ~/.node-red
 npm install node-red-contrib-smartmesh
 ```
@@ -21,7 +32,6 @@ When you have trouble with connecting your BLE devices, reset your HCI socket by
 
 ```
 # STOP Node-RED first!!
-sudo hciconfig hci0 reset
 ```
 And restart Node-RED.
 
@@ -29,6 +39,7 @@ And restart Node-RED.
 
 Run the following commands:
 ```
+sudo pip install pyserial
 cd $(npm -g root)/candy-red
 sudo npm install --unsafe-perm node-red-contrib-smartmesh
 ```
