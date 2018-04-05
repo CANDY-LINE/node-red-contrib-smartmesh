@@ -126,7 +126,7 @@
         "id": "793d90b2.1e85a",
         "type": "inject",
         "z": "c6d89d06.5920f",
-        "name": "LED ON (00-11-22-33-44-55-66-77)",
+        "name": "LED OFF (00-11-22-33-44-55-66-77)",
         "topic": "",
         "payload": "{\"mac\":\"00-11-22-33-44-55-66-77\",\"id\":\"led_off_2\",\"command\":\"PUT\",\"address\":\"/3/2\",\"tags\":[{\"tag\":0,\"format\":\"byte\",\"value\":\"00\"}]}",
         "payloadType": "json",
