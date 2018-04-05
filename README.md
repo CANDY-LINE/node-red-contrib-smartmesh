@@ -28,13 +28,6 @@ npm install node-red-contrib-smartmesh
 
 Then restart Node-RED process.
 
-When you have trouble with connecting your BLE devices, reset your HCI socket by the following command.
-
-```
-# STOP Node-RED first!!
-```
-And restart Node-RED.
-
 ## CANDY RED users
 
 Run the following commands:
