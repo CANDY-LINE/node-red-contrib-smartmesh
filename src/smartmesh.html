@@ -1,0 +1,149 @@
+<script type="text/x-red" data-template-name="SmartMesh in">
+  <div class='form-row'>
+    <label for='node-input-name'>
+      <i class='fa fa-tag'></i>
+      <span data-i18n='node-red:common.label.name'></span>
+    </label>
+    <input type='text' id='node-input-name' data-i18n='[placeholder]node-red:common.label.name'>
+  </div>
+  <div class="form-row node-input-smartMeshManager">
+    <label for="node-input-smartMeshManager">
+      <i class="fa fa-plug"></i>
+      <span data-i18n="smartmesh.label.smartMeshManager"></span></label>
+    <input type="text" id="node-input-smartMeshManager">
+  </div>
+  <div class='form-row'>
+    <label for='node-input-subscriptionType'>
+      <i class='fa fa-feed'></i>
+      <span data-i18n='smartmesh.label.subscriptionType'></span>
+    </label>
+    <select type='text' id='node-input-subscriptionType' style='width: 70%;'>
+      <option value='all' data-i18n='smartmesh.subscriptionType.all'></option>
+      <option value='result' data-i18n='smartmesh.subscriptionType.result'></option>
+      <option value='notification' data-i18n='smartmesh.subscriptionType.notification'></option>
+    </select>
+  </div>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('SmartMesh in', {
+    category: 'SmartMesh',
+    color: '#64b9ce',
+    defaults: {
+      name: { value: '' },
+      subscriptionType: { value: 'all', required: true },
+      smartMeshManager: { type: 'SmartMesh manager', required: true }
+    },
+    inputs: 0,
+    outputs: 1,
+    icon: 'smartmesh.png',
+    align: 'left',
+    label: function() {
+      return this.name || 'SmartMesh';
+    },
+    labelStyle: function() {
+      return this.name ? 'node_label_italic' : '';
+    },
+  });
+</script>
+
+<script type="text/x-red" data-template-name="SmartMesh out">
+  <div class='form-row'>
+    <label for='node-input-name'>
+      <i class='fa fa-tag'></i>
+      <span data-i18n='node-red:common.label.name'></span>
+    </label>
+    <input type='text' id='node-input-name' data-i18n='[placeholder]node-red:common.label.name'>
+  </div>
+  <div class="form-row node-input-smartMeshManager">
+    <label for="node-input-smartMeshManager">
+      <i class="fa fa-plug"></i>
+      <span data-i18n="smartmesh.label.smartMeshManager"></span></label>
+    <input type="text" id="node-input-smartMeshManager">
+  </div>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('SmartMesh out', {
+    category: 'SmartMesh',
+    color: '#64b9ce',
+    defaults: {
+      name: { value: '' },
+      smartMeshManager: { type: 'SmartMesh manager', required: true }
+    },
+    inputs: 1,
+    outputs: 0,
+    icon: 'smartmesh.png',
+    align: 'right',
+    label: function() {
+      return this.name || 'SmartMesh';
+    },
+    labelStyle: function() {
+      return this.name ? 'node_label_italic' : '';
+    }
+  });
+</script>
+
+<script type="text/x-red" data-template-name="SmartMesh manager">
+  <div class="form-row">
+    <label>&nbsp;</label>
+    <input type="checkbox" id="node-config-input-enabled" style="display: inline-block; width: auto; vertical-align: top;">
+    <label for="node-config-input-enabled" style="width: 70%;" data-i18n="smartmesh.label.enabled"></label>
+  </div>
+  <div class='form-row'>
+    <label for='node-config-input-serialport'>
+      <i class='fa fa-random'></i>
+      <span data-i18n='smartmesh.label.serialport'></span>
+    </label>
+    <input type='text' id='node-config-input-serialport' data-i18n='[placeholder]smartmesh.placeholder.serialport' style='width:60%;'>
+    <a id='node-config-lookup-serial' class='btn'>
+      <i id='node-config-lookup-serial-icon' class='fa fa-search'></i>
+    </a>
+  </div>
+  <div class="form-row">
+    <label>&nbsp;</label>
+    <input type="checkbox" id="node-config-input-redirectSmartMeshManagerLog" style="display: inline-block; width: auto; vertical-align: top;">
+    <label for="node-config-input-redirectSmartMeshManagerLog" style="width: 70%;" data-i18n="smartmesh.label.redirectSmartMeshManagerLog"></label>
+  </div>
+</script>
+
+<script type="text/javascript">
+  'use strict';
+  RED.nodes.registerType('SmartMesh manager',{
+    category: 'config',
+    defaults: {
+      enabled: { value: true, required: true },
+      serialport: { value: '', required: true },
+      redirectSmartMeshManagerLog: { value: false, required: true },
+    },
+    label: function() {
+      return this.serialport;
+    },
+    oneditprepare: function() {
+      $('#node-config-input-serialport').blur(function() {
+        var text = $(this).val();
+        if (text && typeof(text) === 'string') {
+          $(this).val(text.trim());
+        }
+      });
+
+      $('#node-config-lookup-serial').click(function() {
+        $('#node-config-lookup-serial').addClass('disabled');
+        $.getJSON('smartmeshports',function(data) {
+          $('#node-config-lookup-serial').removeClass('disabled');
+          var ports = [];
+          $.each(data, function(i, port){
+            ports.push(port.comName);
+          });
+          $('#node-config-input-serialport').autocomplete({
+            source: ports,
+            minLength: 0,
+            close: function( event, ui ) {
+              $('#node-config-input-serialport').autocomplete('destroy');
+            }
+          }).autocomplete('search', '');
+        });
+      });
+    }
+  });
+</script>

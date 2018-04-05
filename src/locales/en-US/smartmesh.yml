@@ -1,0 +1,18 @@
+# Message Resources for English (fallback language)
+smartmesh:
+  label:
+    serialport: API Port
+    enabled: Enable this Manager
+    smartMeshManager: Manager
+    subscriptionType: Subscribe
+    redirectSmartMeshManagerLog: Redirect Manager Error
+  subscriptionType:
+    all: All Events
+    result: Command Results
+    notification: Notifications
+  placeholder:
+    serialport: e.g. /dev/ttyUSB3 /dev/DC2274A-A.API
+  status:
+    connected: connected
+    disconnected: disconnected
+    error: error

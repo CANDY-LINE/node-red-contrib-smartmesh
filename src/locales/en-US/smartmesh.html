@@ -1,0 +1,99 @@
+<script type="text/x-red" data-help-name="SmartMesh in">
+<p>
+Emits an <a href="http://cds.linear.com/docs/en/software-and-simulation/SmartMesh_IP_Tools_Guide.pdf">OAP (On-chip Application Protocol)</a> request result or notifications coming from the remote motes to the output port.
+</p>
+<h3>Outputs</h3>
+<p>
+This node emits 2 kinds of message, one is a <b>Response</b> from the mote to the <b>Request</b> sent to <b>SmartMesh out</b> node, and the other is a <b>Notification</b> from the remote motes.
+You can filter the subscription message types on the selection list.
+</p>
+<h4>Response</h4>
+<p>
+The command result message looks likt this.
+The <code>id</code> is an arbitrary value you can set in the request message, which allows you to associate the request with the result.
+</p>
+<pre>
+{
+  "result":0,
+  "mac":"00-17-0d-00-00-31-4f-ef",
+  "command":"PUT",
+  "event":"result",
+  "id":"led_on"
+}
+</pre>
+<h4>Notification</h4>
+<p>
+The Notification message contains the temperature value measured in the remote mote.
+The following message shows the Cellcius temperature is <code>18.70°C</code>, which is computed by the sampled value <code>1870</code> divided by <code>100</code>.
+</p>
+<pre>
+{
+  "event":"notification",
+  "packet_timestamp":[
+    1025737777,
+    379480
+  ],
+  "received_timestamp":"2018-03-19 12:51:57.560145",
+  "rate":30000,
+  "mac":"00-11-22-33-44-55-66-77"
+  "sample_size":16,
+  "channel_str":"temperature",
+  "samples":[
+    1870
+  ],
+  "num_samples":1,
+  "channel":[
+    5
+  ]
+}
+</pre>
+</script>
+
+<script type="text/x-red" data-help-name="SmartMesh out">
+<p>
+Processes an <a href="http://cds.linear.com/docs/en/software-and-simulation/SmartMesh_IP_Tools_Guide.pdf">OAP (On-chip Application Protocol)</a> request coming from the input port and generates the request result to the output port.
+</p>
+<p>
+All exceptions and errors are forwarded to <code>catch all</code> node. Use it for handling errors caused by the SmartMesh nodes.
+</p>
+<h3>Inputs</h3>
+<p>
+<dl class="message-properties">
+<dt>mac<span class="property-type">string</span></dt>
+<dd>
+the destination mote(SmartMesh end device) mac address e.g. <code>11:22:33:44:55:66</code> or <code>11-22-33-44-55-66</code>
+</dd>
+<dt>command<span class="property-type">string</span></dt>
+<dd>
+the OAP command to be performed on processing the payload.
+<ul>
+<li><code>GET</code> ... Get one or more values from the mote</li>
+<li><code>PUT</code> ... Update one or more values on the mote</li>
+<li><code>POST</code> ... Create an application object on the mote</li>
+<li><code>DELETE</code> ... Delete a given object on the mote</li>
+</ul>
+</dd>
+<dt>address<span class="property-type">string or int Array</span></dt>
+<dd>
+the destination address to specify a value or object on the mote e.g. <code>"/1/2"</code> or <code>[1, 2]</code>
+</dd>
+<dt>tags<span class="property-type">Object Array</span></dt>
+<dd>
+an Array of the Tag Objects. The Tag Object structure is below.
+<pre>
+{
+  "tag": <i>(int)</i>,
+  "format": <i>(string)</i>, => <code>"byte"</code>, <code>"short"</code>, <code>"long"</code> or <code>"string"</code>
+  "value": <i>(hex string or int Array)</i>
+}
+</pre>
+</dd>
+</dl>
+</p>
+</script>
+
+<script type="text/x-red" data-help-name="SmartMesh manager">
+<p>
+TBW
+</p>
+</script>
