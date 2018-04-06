@@ -42,6 +42,7 @@ export default function(RED) {
       if (smartMeshClients[this.serialport]) {
         throw new Error(`Duplicate serialport configuration for SmartMeshManagerNode!`);
       }
+      this.identifier = n.identifier;
       this.enabled = !!n.enabled;
       this.redirectSmartMeshManagerLog = !!n.redirectSmartMeshManagerLog;
       this.nodes = {};
@@ -65,6 +66,7 @@ export default function(RED) {
             if (message.event === 'notification' && this.nodes[id].subscriptionType === 'result') {
               return;
             }
+            message.managerId = this.identifier;
             this.nodes[id].send({
               payload: message
             });
@@ -75,6 +77,7 @@ export default function(RED) {
       });
       this.on('error-event', (message) => {
         if (message.event === 'error') {
+          message.managerId = this.identifier;
           this.error(`SmartMesh error`, { payload: message });
         }
       });

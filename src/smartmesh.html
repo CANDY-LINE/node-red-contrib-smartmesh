@@ -91,6 +91,13 @@
     <label for="node-config-input-enabled" style="width: 70%;" data-i18n="smartmesh.label.enabled"></label>
   </div>
   <div class='form-row'>
+    <label for='node-config-input-identifier'>
+      <i class='fa fa-tag'></i>
+      <span data-i18n='smartmesh.label.identifier'></span>
+    </label>
+    <input type='text' id='node-config-input-identifier' data-i18n='[placeholder]smartmesh.placeholder.identifier'>
+  </div>
+  <div class='form-row'>
     <label for='node-config-input-serialport'>
       <i class='fa fa-random'></i>
       <span data-i18n='smartmesh.label.serialport'></span>
@@ -114,10 +121,11 @@
     defaults: {
       enabled: { value: true, required: true },
       serialport: { value: '', required: true },
+      identifier: { value: '', required: true },
       redirectSmartMeshManagerLog: { value: false, required: true },
     },
     label: function() {
-      return this.serialport;
+      return this.identifier || this.serialport;
     },
     oneditprepare: function() {
       $('#node-config-input-serialport').blur(function() {
