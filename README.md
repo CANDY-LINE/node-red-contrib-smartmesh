@@ -25,14 +25,25 @@ Run the following commands:
 ```
 sudo pip install pyserial
 cd ~/.node-red
-npm install node-red-contrib-smartmesh
+sudo npm install --unsafe-perm node-red-contrib-smartmesh
 ```
 
 Then restart Node-RED process.
 
+`sudo` is used for installing SmartMesh SDK into dist-package directory.
+
+**Node-RED users cannot install this node via `Manage Palette` dialog because of insufficient permission.**
+
+### Uninstallation
+
+```
+cd ~/.node-red
+sudo npm uninstall --unsafe-perm node-red-contrib-smartmesh
+```
+
 ## CANDY RED users
 
-Run the following commands:
+Use `Manage Palette` dialog in the browser editor or run the following commands:
 ```
 sudo pip install pyserial
 cd $(npm -g root)/candy-red
@@ -43,6 +54,15 @@ Then restart `candy-red` service.
 
 ```
 sudo systemctl restart candy-red
+```
+
+### Uninstallation
+
+`Manage Palette` dialog should work for uninstallation as well as the following commands:
+
+```
+cd $(npm -g root)/candy-red
+sudo npm uninstall --unsafe-perm node-red-contrib-smartmesh
 ```
 
 # Appendix
