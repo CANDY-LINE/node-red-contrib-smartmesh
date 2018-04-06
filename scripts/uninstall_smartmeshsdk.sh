@@ -10,7 +10,7 @@ function log {
 function uninstall_smartmeshsdk {
   INSTALLED_FILES=./deps/smartmeshsdk/installed_files.txt
   if [ -f "${INSTALLED_FILES}" ]; then
-    cat "${INSTALLED_FILES}" | xargs rm -rf
+    cat "${INSTALLED_FILES}" | xargs rm -f
     rm -f "${INSTALLED_FILES}"
     log "SmartMesh SDK has been removed"
   else
