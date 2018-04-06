@@ -4,9 +4,11 @@ node-red-contrib-smartmesh
 [![GitHub release](https://img.shields.io/github/release/CANDY-LINE/node-red-contrib-smartmesh.svg)](https://github.com/CANDY-LINE/node-red-contrib-smartmesh/releases/latest)
 [![master Build Status](https://travis-ci.org/CANDY-LINE/node-red-contrib-smartmesh.svg?branch=master)](https://travis-ci.org/CANDY-LINE/node-red-contrib-smartmesh/)
 
+Node-RED nodes for Analog Devices' SmartMesh® IP Motes and Manager
+
 # ALPHA RELEASE
 
-Node-RED nodes for Analog Devices' SmartMesh® IP Motes and Manager
+These nodes are NOT YET AVAILABLE via Node-RED palette manager.
 
 # Prerequisites
 
@@ -15,7 +17,7 @@ Node-RED nodes for Analog Devices' SmartMesh® IP Motes and Manager
 
 # How to install
 
-For Windows users, use Docker or other Linux box VM to start Node-RED in order to install this node.
+For Windows users, use Docker or Linux box VM to start Node-RED in order to install this node.
 
 ## Node-RED users
 
