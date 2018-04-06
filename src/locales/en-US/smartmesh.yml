@@ -2,6 +2,7 @@
 smartmesh:
   label:
     serialport: API Port
+    identifier: Identifier
     enabled: Enable this Manager
     smartMeshManager: Manager
     subscriptionType: Subscribe
@@ -12,6 +13,7 @@ smartmesh:
     notification: Notifications
   placeholder:
     serialport: e.g. /dev/ttyUSB3 /dev/DC2274A-A.API
+    identifier: USB Manager Identifier
   status:
     connected: connected
     disconnected: disconnected

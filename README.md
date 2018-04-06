@@ -4,9 +4,11 @@ node-red-contrib-smartmesh
 [![GitHub release](https://img.shields.io/github/release/CANDY-LINE/node-red-contrib-smartmesh.svg)](https://github.com/CANDY-LINE/node-red-contrib-smartmesh/releases/latest)
 [![master Build Status](https://travis-ci.org/CANDY-LINE/node-red-contrib-smartmesh.svg?branch=master)](https://travis-ci.org/CANDY-LINE/node-red-contrib-smartmesh/)
 
+Node-RED nodes for Analog Devices' SmartMesh® IP Motes and Manager
+
 # ALPHA RELEASE
 
-Node-RED nodes for Analog Devices' SmartMesh® IP Motes and Manager
+These nodes are NOT YET AVAILABLE via Node-RED palette manager.
 
 # Prerequisites
 
@@ -15,7 +17,7 @@ Node-RED nodes for Analog Devices' SmartMesh® IP Motes and Manager
 
 # How to install
 
-For Windows users, use Docker or other Linux box VM to start Node-RED in order to install this node.
+For Windows users, use Docker or Linux box VM to start Node-RED in order to install this node.
 
 ## Node-RED users
 
@@ -23,21 +25,25 @@ Run the following commands:
 ```
 sudo pip install pyserial
 cd ~/.node-red
-npm install node-red-contrib-smartmesh
+sudo npm install --unsafe-perm node-red-contrib-smartmesh
 ```
 
 Then restart Node-RED process.
 
-When you have trouble with connecting your BLE devices, reset your HCI socket by the following command.
+`sudo` is used for installing SmartMesh SDK into dist-package directory.
+
+**Node-RED users cannot install this node via `Manage Palette` dialog because of insufficient permission.**
+
+### Uninstallation
 
 ```
-# STOP Node-RED first!!
+cd ~/.node-red
+sudo npm uninstall --unsafe-perm node-red-contrib-smartmesh
 ```
-And restart Node-RED.
 
 ## CANDY RED users
 
-Run the following commands:
+Use `Manage Palette` dialog in the browser editor or run the following commands:
 ```
 sudo pip install pyserial
 cd $(npm -g root)/candy-red
@@ -48,6 +54,15 @@ Then restart `candy-red` service.
 
 ```
 sudo systemctl restart candy-red
+```
+
+### Uninstallation
+
+`Manage Palette` dialog should work for uninstallation as well as the following commands:
+
+```
+cd $(npm -g root)/candy-red
+sudo npm uninstall --unsafe-perm node-red-contrib-smartmesh
 ```
 
 # Appendix
@@ -71,6 +86,10 @@ $ rm -fr node_modules; \
 ```
 
 # Revision History
+
+* 0.2.0
+  - Fix an issue where /usr/local directory was removed when uninstalling this package
+  - Add a new property to SmartMesh manager node to append a source manager identifier to the mote event message
 
 * 0.1.0
   - Initial Release (alpha)
