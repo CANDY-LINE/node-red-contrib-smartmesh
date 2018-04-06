@@ -87,6 +87,10 @@ $ rm -fr node_modules; \
 
 # Revision History
 
+* 0.2.0
+  - Fix an issue where /usr/local directory was removed when uninstalling this package
+  - Add a new property to SmartMesh manager node to append a source manager identifier to the mote event message
+
 * 0.1.0
   - Initial Release (alpha)
   - `node-red` keyword is not yet added
