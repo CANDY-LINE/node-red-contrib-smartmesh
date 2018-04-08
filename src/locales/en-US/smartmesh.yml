@@ -10,6 +10,7 @@ smartmesh:
   subscriptionType:
     all: All Events
     result: Command Results
+    data: Data Events
     notification: Notifications
   placeholder:
     serialport: e.g. /dev/ttyUSB3 /dev/DC2274A-A.API

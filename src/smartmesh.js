@@ -63,8 +63,10 @@ export default function(RED) {
             if (!this.nodes[id].input) {
               return;
             }
-            if (message.event === 'notification' && this.nodes[id].subscriptionType === 'result') {
-              return;
+            if (this.nodes[id].subscriptionType && this.nodes[id].subscriptionType !== 'all') {
+              if (message.event !== this.nodes[id].subscriptionType) {
+                return;
+              }
             }
             message.managerId = this.identifier;
             this.nodes[id].send({
