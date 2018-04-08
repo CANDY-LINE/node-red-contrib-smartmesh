@@ -40,6 +40,7 @@ export class SmartMeshClientProxy {
     } else {
       this.bus = opts.bus || new EventEmitter();
     }
+    this.motes = {};
   }
 
   isConnected() {
@@ -76,6 +77,47 @@ export class SmartMeshClientProxy {
     }
   }
 
+  fireMoteConnected() {
+    this.bus.emit('connected', this.getActiveMoteCount());
+  }
+
+  processEvent(message) {
+    if (message.mac && message.mac !== 'N/A' && !this.motes[message.mac]) {
+      this.motes[message.mac] = {
+        mac: message.mac,
+      };
+      if (message.event !== 'notification') {
+        this.motes[message.mac].joinedAt = Date.now();
+        this.motes[message.mac].active = true;
+        this.fireMoteConnected();
+        return;
+      }
+    }
+    switch (message.type) {
+      case 'eventMoteJoin':
+        if (this.motes[message.mac]) {
+          this.motes[message.mac].joinedAt = Date.now();
+          this.motes[message.mac].active = true;
+        }
+        break;
+      case 'eventMoteLost':
+        if (this.motes[message.mac]) {
+          this.motes[message.mac].active = false;
+          this.motes[message.mac].lostAt = Date.now();
+        }
+        break;
+    }
+    this.fireMoteConnected();
+  }
+
+  getActiveMoteCount() {
+    return Object.values(this.motes).filter(mote => mote.active).length;
+  }
+
+  getMoteCount() {
+    return Object.keys(this.motes).length;
+  }
+
   start() {
     // This function call may throw an exception on error
     this.cproc = cproc.spawn(`${PYTHON_EXEC}`,
@@ -86,7 +128,7 @@ export class SmartMeshClientProxy {
         stdio: ['pipe', 'pipe', this.redirectSmartMeshManagerLog ? process.stderr : 'ignore']
       }
     );
-    this.bus.emit('connected');
+    this.fireMoteConnected();
     this.cproc.on('exit', (code) => {
       let message = '';
       switch (code) {
@@ -122,6 +164,7 @@ export class SmartMeshClientProxy {
             this.bus.emit('error-event', message);
           } else {
             this.bus.emit('event', message);
+            this.processEvent(message);
           }
         } catch (_) {
           return;

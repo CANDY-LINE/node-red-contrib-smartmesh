@@ -16,6 +16,6 @@ smartmesh:
     serialport: e.g. /dev/ttyUSB3 /dev/DC2274A-A.API
     identifier: USB Manager Identifier
   status:
-    connected: connected
+    connected: connected __n__
     disconnected: disconnected
     error: error
