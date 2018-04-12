@@ -82,7 +82,7 @@ export class SmartMeshClientProxy {
   }
 
   processEvent(message) {
-    if (message.mac && message.mac !== 'N/A' && !this.motes[message.mac]) {
+    if (message.mac && !this.motes[message.mac]) {
       this.motes[message.mac] = {
         mac: message.mac,
       };
