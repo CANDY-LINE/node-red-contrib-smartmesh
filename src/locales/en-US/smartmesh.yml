@@ -7,6 +7,7 @@ smartmesh:
     smartMeshManager: Manager
     subscriptionType: Subscribe
     redirectSmartMeshManagerLog: Redirect Manager Error
+    motes: Active Motes
   subscriptionType:
     all: All Events
     result: Command Results
