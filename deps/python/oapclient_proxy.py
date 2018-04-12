@@ -227,15 +227,15 @@ class OAPClientProxy(object):
     def on_notification_event(self, notifName, notifParams):
         """Called when a mote event is issued.
         """
-        try:
-            mac_address = self.format_mac_address(notifParams.macAddress)
-        except Exception:
-            mac_address = 'N/A'
-        self.emit_event({
+        message = {
             'event': 'notification',
-            'mac': mac_address,
             'type': notifName
-        })
+        }
+        try:
+            message['mac'] = self.format_mac_address(notifParams.macAddress)
+        except Exception:
+            pass
+        self.emit_event(message)
 
     def on_disconnected(self, notifName, notifParams):
         """Called when the connectionFrame has disconnected.
