@@ -215,4 +215,12 @@ export default function(RED) {
       });
     });
   });
+
+  RED.httpAdmin.get('/smartmesh/:serialport/motes', RED.auth.needsPermission('serial.read'), function(req,res) {
+    let serialport = req.params.serialport;
+    if (!smartMeshClients[serialport]) {
+      return res.sendStatus(404);
+    }
+    res.json(smartMeshClients[serialport].getActiveMotes());
+  });
 }

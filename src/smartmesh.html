@@ -113,6 +113,10 @@
     <input type="checkbox" id="node-config-input-redirectSmartMeshManagerLog" style="display: inline-block; width: auto; vertical-align: top;">
     <label for="node-config-input-redirectSmartMeshManagerLog" style="width: 70%;" data-i18n="smartmesh.label.redirectSmartMeshManagerLog"></label>
   </div>
+  <div class='form-row node-config-input-motes-container-row'>
+    <i class='fa fa-braille'></i> <span data-i18n='smartmesh.label.motes'></span>
+    <ol id='node-config-input-motes-container'></ol>
+  </div>
 </script>
 
 <script type="text/javascript">
@@ -152,6 +156,47 @@
             }
           }).autocomplete('search', '');
         });
+      });
+
+      $('#node-config-input-motes-container').css('min-height','250px').css('min-width','450px').editableList({
+        addItem: function(container, i, opt) {
+          if (!opt || !opt.mac) {
+            return;
+          }
+          var mote = opt;
+          var row = $('<div/>').appendTo(container);
+
+          var mac = $('<span/>',{style:'margin-left: 5px;'}).text(mote.mac).appendTo(row);
+          var joinedAt = $('<span/>',{style:'margin-left: 5px;'}).text(' (' + new Date(mote.joinedAt).toLocaleString() + ')').appendTo(row);
+        },
+        sortable: false,
+        removable: false,
+        addButton: false
+      });
+
+      function clearMotes() {
+        var children = $('#node-config-input-motes-container')[0].children;
+        var len = children.length;
+        for (var i = 0; i < len; i++) {
+          children[0].remove();
+        }
+      }
+
+      $.ajax({
+        cache: false,
+        url: 'smartmesh/' + encodeURIComponent(this.serialport) + '/motes',
+        dataType: 'json',
+        success: function(motes) {
+          for (var i = 0; i < motes.length; i++) {
+            $('#node-config-input-motes-container').editableList('addItem', motes[i]);
+          }
+          if (motes.length === 0) {
+            clearMotes();
+          }
+        },
+        error: function () {
+          clearMotes();
+        }
       });
     }
   });

@@ -110,8 +110,12 @@ export class SmartMeshClientProxy {
     this.fireMoteConnected();
   }
 
+  getActiveMotes() {
+    return Object.values(this.motes).filter(mote => mote.active);
+  }
+
   getActiveMoteCount() {
-    return Object.values(this.motes).filter(mote => mote.active).length;
+    return this.getActiveMotes().length;
   }
 
   getMoteCount() {
