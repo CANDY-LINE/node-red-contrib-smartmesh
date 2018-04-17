@@ -87,6 +87,9 @@ $ rm -fr node_modules; \
 
 # Revision History
 
+* 0.3.1
+  - Fix an issue where Object.value function was missing on Node.js v6
+
 * 0.3.0
   - Add the mac property only when it's available
   - Fix an issue where some of events didn't contain the mac address
