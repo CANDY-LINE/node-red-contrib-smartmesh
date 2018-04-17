@@ -111,7 +111,7 @@ export class SmartMeshClientProxy {
   }
 
   getActiveMotes() {
-    return Object.values(this.motes).filter(mote => mote.active);
+    return Object.keys(this.motes).filter(mac => this.motes[mac].active);
   }
 
   getActiveMoteCount() {
