@@ -47,10 +47,10 @@ export default function(RED) {
       this.redirectSmartMeshManagerLog = !!n.redirectSmartMeshManagerLog;
       this.nodes = {};
       ['connected', 'disconnected', 'error'].forEach(ev => {
-        this.on(ev, () => {
+        this.on(ev, (...params) => {
           try {
             Object.keys(this.nodes).forEach(id => {
-              this.nodes[id].emit(ev);
+              this.nodes[id].emit(ev, params);
             });
           } catch (e) {
             this.error(e);
@@ -63,8 +63,10 @@ export default function(RED) {
             if (!this.nodes[id].input) {
               return;
             }
-            if (message.event === 'notification' && this.nodes[id].subscriptionType === 'result') {
-              return;
+            if (this.nodes[id].subscriptionType && this.nodes[id].subscriptionType !== 'all') {
+              if (message.event !== this.nodes[id].subscriptionType) {
+                return;
+              }
             }
             message.managerId = this.identifier;
             this.nodes[id].send({
@@ -145,8 +147,8 @@ export default function(RED) {
       this.smartMeshManagerNodeId = n.smartMeshManager;
       this.smartMeshManagerNode = RED.nodes.getNode(this.smartMeshManagerNodeId);
       if (this.smartMeshManagerNode) {
-        this.on('connected', () => {
-          this.status({fill:'green',shape:'dot',text:`smartmesh.status.connected`});
+        this.on('connected', (n=0) => {
+          this.status({fill:'green',shape:'dot',text:RED._('smartmesh.status.connected', {n:n})});
         });
         ['disconnected', 'error'].forEach(ev => {
           this.on(ev, () => {
@@ -171,8 +173,8 @@ export default function(RED) {
       this.smartMeshManagerNodeId = n.smartMeshManager;
       this.smartMeshManagerNode = RED.nodes.getNode(this.smartMeshManagerNodeId);
       if (this.smartMeshManagerNode) {
-        this.on('connected', () => {
-          this.status({fill:'green',shape:'dot',text:`smartmesh.status.connected`});
+        this.on('connected', (n=0) => {
+          this.status({fill:'green',shape:'dot',text:RED._('smartmesh.status.connected', {n:n})});
         });
         ['disconnected', 'error'].forEach(ev => {
           this.on(ev, () => {
@@ -212,5 +214,13 @@ export default function(RED) {
         res.json(list.concat(ports));
       });
     });
+  });
+
+  RED.httpAdmin.get('/smartmesh/:serialport/motes', RED.auth.needsPermission('serial.read'), function(req,res) {
+    let serialport = req.params.serialport;
+    if (!smartMeshClients[serialport]) {
+      return res.sendStatus(404);
+    }
+    res.json(smartMeshClients[serialport].getActiveMotes());
   });
 }

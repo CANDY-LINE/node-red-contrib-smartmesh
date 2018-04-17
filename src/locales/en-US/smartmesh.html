@@ -7,7 +7,7 @@ Emits an <a href="http://cds.linear.com/docs/en/software-and-simulation/SmartMes
 This node emits 2 kinds of message, one is a <b>Response</b> from the mote to the <b>Request</b> sent to <b>SmartMesh out</b> node, and the other is a <b>Notification</b> from the remote motes.
 You can filter the subscription message types on the selection list.
 </p>
-<h4>Response</h4>
+<h4>Results</h4>
 <p>
 The command result message looks likt this.
 The <code>id</code> is an arbitrary value you can set in the request message, which allows you to associate the request with the result.
@@ -21,14 +21,14 @@ The <code>id</code> is an arbitrary value you can set in the request message, wh
   "id":"led_on"
 }
 </pre>
-<h4>Notification</h4>
+<h4>Data</h4>
 <p>
-The Notification message contains the temperature value measured in the remote mote.
+The Data message contains the temperature value measured in the remote mote.
 The following message shows the Cellcius temperature is <code>18.70°C</code>, which is computed by the sampled value <code>1870</code> divided by <code>100</code>.
 </p>
 <pre>
 {
-  "event":"notification",
+  "event":"data",
   "packet_timestamp":[
     1025737777,
     379480
@@ -45,6 +45,18 @@ The following message shows the Cellcius temperature is <code>18.70°C</code>, w
   "channel":[
     5
   ]
+}
+</pre>
+<h4>Notifications</h4>
+<p>
+The Notification message contains the SmartMesh network events issued when a remote mote is joined or lost, for instance.
+The following message shows a new mote is joined.
+</p>
+<pre>
+{
+  "event":"notification",
+  "type":"eventMoteJoin",
+  "mac":"00-11-22-33-44-55-66-77"
 }
 </pre>
 </script>

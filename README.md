@@ -87,6 +87,13 @@ $ rm -fr node_modules; \
 
 # Revision History
 
+* 0.3.0
+  - Add the mac property only when it's available
+  - Fix an issue where some of events didn't contain the mac address
+  - Show active motes on the manager dialog for better user experience
+  - Add the connected mote counter to the connected status label
+  - Add a new type 'Data' for subscription type
+
 * 0.2.0
   - Fix an issue where /usr/local directory was removed when uninstalling this package
   - Add a new property to SmartMesh manager node to append a source manager identifier to the mote event message

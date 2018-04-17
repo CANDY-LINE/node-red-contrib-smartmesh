@@ -92,6 +92,14 @@ class OAPClientProxy(object):
         )
         self.subscriber.subscribe(
             notifTypes=[
+                IpMgrSubscribe.IpMgrSubscribe.NOTIFEVENT,
+                IpMgrSubscribe.IpMgrSubscribe.NOTIFHEALTHREPORT,
+            ],
+            fun=self.on_notification_event,
+            isRlbl=True,
+        )
+        self.subscriber.subscribe(
+            notifTypes=[
                 IpMgrSubscribe.IpMgrSubscribe.ERROR,
                 IpMgrSubscribe.IpMgrSubscribe.FINISH,
             ],
@@ -216,6 +224,19 @@ class OAPClientProxy(object):
             if message_lines:
                 self.process_message(message_lines)
 
+    def on_notification_event(self, notifName, notifParams):
+        """Called when a mote event is issued.
+        """
+        message = {
+            'event': 'notification',
+            'type': notifName
+        }
+        try:
+            message['mac'] = self.format_mac_address(notifParams.macAddress)
+        except Exception:
+            pass
+        self.emit_event(message)
+
     def on_disconnected(self, notifName, notifParams):
         """Called when the connectionFrame has disconnected.
         """
@@ -233,7 +254,7 @@ class OAPClientProxy(object):
         mac_address = self.format_mac_address(mac)
         try:
             message = notif._asdict()
-            message['event'] = 'notification'
+            message['event'] = 'data'
             message['mac'] = mac_address
             self.send_message(message)
         except Exception as err:
@@ -320,7 +341,6 @@ class OAPClientProxy(object):
         if not mac_address:
             raise ValueError('Unsupported mac address value [%s]' % str(mac))
         return mac_address
-
 
 
 if __name__ == "__main__":
