@@ -166,8 +166,14 @@
           var mote = opt;
           var row = $('<div/>').appendTo(container);
 
-          var mac = $('<span/>',{style:'margin-left: 5px;'}).text(mote.mac).appendTo(row);
-          var joinedAt = $('<span/>',{style:'margin-left: 5px;'}).text(' (' + new Date(mote.joinedAt).toLocaleString() + ')').appendTo(row);
+          var mac = $('<span/>',{
+            class:'debug-message-element',
+            style:'margin-left: 5px;width:70%'
+          }).text(mote.mac).appendTo(row);
+          var joinedAt = $('<span/>',{
+            class:'debug-message-element',
+            style:'margin-left: 5px;width:30%'
+          }).text('| ' + new Date(mote.joinedAt).toLocaleString()).appendTo(row);
         },
         sortable: false,
         removable: false,
