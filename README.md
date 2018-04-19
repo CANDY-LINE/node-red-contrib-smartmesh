@@ -4,13 +4,45 @@ node-red-contrib-smartmesh
 [![GitHub release](https://img.shields.io/github/release/CANDY-LINE/node-red-contrib-smartmesh.svg)](https://github.com/CANDY-LINE/node-red-contrib-smartmesh/releases/latest)
 [![master Build Status](https://travis-ci.org/CANDY-LINE/node-red-contrib-smartmesh.svg?branch=master)](https://travis-ci.org/CANDY-LINE/node-red-contrib-smartmesh/)
 
-Node-RED nodes for Analog Devices' SmartMesh® IP Motes and Manager
+Node-RED nodes for Analog Devices' [DC2274A-A SmartMesh IP USB Network Manager](http://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/dc2274a-a.html).
 
-# ALPHA RELEASE
+![DC2274A-A, Motes, RPi Zero WH and CANDY_Pi_Lite](images/DC2274A-A_Motes_RPi_CANDY_Pi_Lite.jpg)
 
-These nodes are NOT YET AVAILABLE via Node-RED palette manager.
+The above picture shows a typical demonstration set including:
+
+- DC2274A-A SmartMesh IP USB Manager dongle
+- SmartMesh Motes containing controllable LED, temperature sensor and GPIO/UART/SPI/I2C interfaces
+- Raspberry Pi Zero WH for running Node-RED/CANDY RED(a custom version of Node-RED)
+- CANDY Pi Lite LTE Board for 4G/LTE mobile connection to upload data/download control commands from cloud servers
+
+## Example Flow
+
+The bundled example flow includes the following operations:
+
+- Turn on/off LED on remote motes
+- Getting LED on/off command results
+- Showing temperature data from remote motes
+- Showing SmartMesh network event notifications
+
+![Example flow](images/example-flow-working.jpg)
+
+## Easy to use
+
+These are provided by the default firmware on the evaluation kit. So you don't have to flash a specific firmware to work the example but just turn all motes on and connect the USB manager to Raspberry Pi, ASUS Tinker Board or other Linux box where Node-RED runs.
+
+## Listing Active Motes
+
+You can find the active (online) motes from the manager dialog while monitoring the flow.
+
+![DC2274A-A SmartMesh  IP USB Manager Dialog](images/usb-manager-dialog.jpg)
+
+## SmartMesh IP Document
+
+See [SmartMesh IP Tools Guide(PDF)](http://cds.linear.com/docs/en/software-and-simulation/SmartMesh_IP_Tools_Guide.pdf) for SmartMesh IP technical details.
 
 # Prerequisites
+
+[SmartMesh SDK v1.3.0.1](https://dustcloud.atlassian.net/wiki/spaces/SMSDK/overview) ([GitHub repo](https://github.com/dustcloud/smartmeshsdk)) requires the following environments.
 
 1. Python 2.7 (Python 2.6/3.x are NOT supported)
 1. PySerial 3.4+
@@ -30,9 +62,9 @@ sudo npm install --unsafe-perm node-red-contrib-smartmesh
 
 Then restart Node-RED process.
 
-`sudo` is used for installing SmartMesh SDK into dist-package directory.
+`sudo` is used for installing [SmartMesh SDK](https://dustcloud.atlassian.net/wiki/spaces/SMSDK/overview) into dist-package directory.
 
-**Node-RED users cannot install this node via `Manage Palette` dialog because of insufficient permission.**
+**Node-RED users cannot install this node via `Manage Palette` dialog because of insufficient permission unless the process is owned by privileged user**
 
 ### Uninstallation
 
