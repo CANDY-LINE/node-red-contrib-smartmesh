@@ -4,16 +4,16 @@ node-red-contrib-smartmesh
 [![GitHub release](https://img.shields.io/github/release/CANDY-LINE/node-red-contrib-smartmesh.svg)](https://github.com/CANDY-LINE/node-red-contrib-smartmesh/releases/latest)
 [![master Build Status](https://travis-ci.org/CANDY-LINE/node-red-contrib-smartmesh.svg?branch=master)](https://travis-ci.org/CANDY-LINE/node-red-contrib-smartmesh/)
 
-Node-RED nodes for Analog Devices' [DC2274A-A SmartMesh IP USB Network Manager](http://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/dc2274a-a.html).
+Node-RED nodes for Analog Devices' [DC2274A-A SmartMesh IP™ USB Network Manager](http://www.analog.com/en/design-center/evaluation-hardware-and-software/evaluation-boards-kits/dc2274a-a.html).
 
 ![DC2274A-A, Motes, RPi Zero WH and CANDY_Pi_Lite](images/DC2274A-A_Motes_RPi_CANDY_Pi_Lite.jpg)
 
 The above picture shows a typical demonstration set including:
 
-- DC2274A-A SmartMesh IP USB Manager dongle
-- SmartMesh Motes containing controllable LED, temperature sensor and GPIO/UART/SPI/I2C interfaces
-- Raspberry Pi Zero WH for running Node-RED/CANDY RED(a custom version of Node-RED)
-- CANDY Pi Lite LTE Board for 4G/LTE mobile connection to upload data/download control commands from cloud servers
+- DC2274A-A SmartMesh IP™ USB Manager dongle
+- SmartMesh IP™ Motes containing controllable LED, temperature sensor and GPIO/UART/SPI/I2C interfaces
+- Raspberry Pi Zero WH for running Node-RED/CANDY RED(a custom version of Node-RED dedicated to CANDY Pi Lite)
+- CANDY Pi Lite LTE Board for 4G/LTE mobile connection to upload data/download control commands to/from cloud servers
 
 ## Example Flow
 
@@ -34,11 +34,11 @@ These are provided by the default firmware on the evaluation kit. So you don't h
 
 You can find the active (online) motes from the manager dialog while monitoring the flow.
 
-![DC2274A-A SmartMesh  IP USB Manager Dialog](images/usb-manager-dialog.jpg)
+![DC2274A-A SmartMesh IP™ USB Manager Dialog](images/usb-manager-dialog.jpg)
 
 ## SmartMesh IP Document
 
-See [SmartMesh IP Tools Guide(PDF)](http://cds.linear.com/docs/en/software-and-simulation/SmartMesh_IP_Tools_Guide.pdf) for SmartMesh IP technical details.
+See [SmartMesh IP™ Tools Guide(PDF)](http://cds.linear.com/docs/en/software-and-simulation/SmartMesh_IP_Tools_Guide.pdf) for SmartMesh IP™ technical details.
 
 # Prerequisites
 
@@ -64,7 +64,7 @@ Then restart Node-RED process.
 
 `sudo` is used for installing [SmartMesh SDK](https://dustcloud.atlassian.net/wiki/spaces/SMSDK/overview) into dist-package directory.
 
-**Node-RED users cannot install this node via `Manage Palette` dialog because of insufficient permission unless the process is owned by privileged user**
+**Node-RED users cannot install this node via `Manage Palette` dialog because of insufficient permission unless the process is owned by privileged user. Use the above commands to install it.**
 
 ### Uninstallation
 
@@ -119,6 +119,11 @@ $ rm -fr node_modules; \
 
 # Revision History
 
+* 1.0.0
+  - Initial General Availability Release
+  - Add `node-red` keyword
+  - Fix an issue where Active Motes were never shown in the manager dialog
+
 * 0.3.1
   - Fix an issue where Object.value function was missing on Node.js v6
 
@@ -131,7 +136,7 @@ $ rm -fr node_modules; \
 
 * 0.2.0
   - Fix an issue where /usr/local directory was removed when uninstalling this package
-  - Add a new property to SmartMesh manager node to append a source manager identifier to the mote event message
+  - Add a new property to SmartMesh IP™ manager node to append a source manager identifier to the mote event message
 
 * 0.1.0
   - Initial Release (alpha)
