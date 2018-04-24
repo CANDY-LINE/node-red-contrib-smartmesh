@@ -2,6 +2,9 @@
 <p>
 Emits an <a href="http://cds.linear.com/docs/en/software-and-simulation/SmartMesh_IP_Tools_Guide.pdf">OAP (On-chip Application Protocol)</a> request result or notifications coming from the remote motes to the output port.
 </p>
+<p>
+The <code>connected</code> status below the node shows the number of active motes as well as the SmartMesh manager connection status.
+</p>
 <h3>Outputs</h3>
 <p>
 This node emits 2 kinds of message, one is a <b>Response</b> from the mote to the <b>Request</b> sent to <b>SmartMesh out</b> node, and the other is a <b>Notification</b> from the remote motes.
@@ -18,7 +21,9 @@ The <code>id</code> is an arbitrary value you can set in the request message, wh
   "mac":"00-17-0d-00-00-31-4f-ef",
   "command":"PUT",
   "event":"result",
-  "id":"led_on"
+  "id":"led_on",
+  "managerId":"manager-identifier",
+  "timestamp":1234567890
 }
 </pre>
 <h4>Data</h4>
@@ -44,7 +49,9 @@ The following message shows the Cellcius temperature is <code>18.70°C</code>, w
   "num_samples":1,
   "channel":[
     5
-  ]
+  ],
+  "managerId":"manager-identifier",
+  "timestamp":1234567890
 }
 </pre>
 <h4>Notifications</h4>
@@ -56,9 +63,22 @@ The following message shows a new mote is joined.
 {
   "event":"notification",
   "type":"eventMoteJoin",
-  "mac":"00-11-22-33-44-55-66-77"
+  "mac":"00-11-22-33-44-55-66-77",
+  "managerId":"manager-identifier",
+  "timestamp":1234567890
 }
 </pre>
+<p>
+The available event <code>type</code>s are:
+<ul>
+<li><code>eventMoteCreate</code></li>
+<li><code>eventMoteJoin</code></li>
+<li><code>eventPathCreate</code>(without MAC)</li>
+<li><code>eventMoteOperational</code></li>
+<li><code>eventPathDelete</code>(without MAC)</li>
+<li><code>eventMoteLost</code></li>
+</ul>
+</p>
 </script>
 
 <script type="text/x-red" data-help-name="SmartMesh out">
@@ -67,6 +87,9 @@ Processes an <a href="http://cds.linear.com/docs/en/software-and-simulation/Smar
 </p>
 <p>
 All exceptions and errors are forwarded to <code>catch all</code> node. Use it for handling errors caused by the SmartMesh nodes.
+</p>
+<p>
+The <code>connected</code> status below the node shows the number of active motes as well as the SmartMesh manager connection status.
 </p>
 <h3>Inputs</h3>
 <p>
@@ -106,6 +129,29 @@ an Array of the Tag Objects. The Tag Object structure is below.
 
 <script type="text/x-red" data-help-name="SmartMesh manager">
 <p>
-TBW
+Represents the SmartMesh USB Manager. You can configure the manager behavior on the config node dialog.
+The configurable items are described below.
+</p>
+<h4>Enable this Manager</h4>
+<p>
+Whether or not to enable this manager. Checked by default. The SmartMesh node status turns into <code>disconnected</code> when unchecked.
+</p>
+<h4>Identifier</h4>
+<p>
+An arbitrary text string appended to all messages via this manager as <code>managerId</code> property in order for third parties to learn the source SmartMesh manager of the messages.
+</p>
+<h4>API Port</h4>
+<p>
+Specify the serial port for SmartMesh USB Manager API port.
+The loupe icon button helps you to pick it up from the active serial ports.
+</p>
+<h4>Redirect Manager Error</h4>
+<p>
+Whether or not to redirect stderr logs from SmartMesh SDK to stdout (rather than Debug tab).
+This is useful to diagnose SmartMesh SDK behavior.
+</p>
+<h4>Active Motes</h4>
+<p>
+This window just shows a list of active motes. You can learn MAC address and detected time of the active motes.
 </p>
 </script>

@@ -1,57 +1,57 @@
 [
     {
-        "id": "c6d89d06.5920f",
+        "id": "92e1ac59.e47078",
         "type": "tab",
         "label": "SmartMesh Example",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "b2986a8f.d9ad7",
+        "id": "54fcf07a.bf08a",
         "type": "debug",
-        "z": "c6d89d06.5920f",
+        "z": "92e1ac59.e47078",
         "name": "Data",
         "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 483.5,
-        "y": 338,
+        "x": 467.5,
+        "y": 322,
         "wires": []
     },
     {
-        "id": "3ffb1672.a60f62",
+        "id": "7025063f.b96168",
         "type": "catch",
-        "z": "c6d89d06.5920f",
+        "z": "92e1ac59.e47078",
         "name": "",
         "scope": null,
-        "x": 288.5,
-        "y": 407.25,
+        "x": 285.5,
+        "y": 453.25,
         "wires": [
             [
-                "c501407a.4f901"
+                "c015984c.413828"
             ]
         ]
     },
     {
-        "id": "c501407a.4f901",
+        "id": "c015984c.413828",
         "type": "debug",
-        "z": "c6d89d06.5920f",
+        "z": "92e1ac59.e47078",
         "name": "Error",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
-        "x": 466,
-        "y": 430,
+        "x": 463,
+        "y": 476,
         "wires": []
     },
     {
-        "id": "ec6099a0.8fa528",
+        "id": "304fbe9d.7fd2d2",
         "type": "inject",
-        "z": "c6d89d06.5920f",
+        "z": "92e1ac59.e47078",
         "name": "LED ON (77-66-55-44-33-22-11-00)",
         "topic": "",
         "payload": "{\"mac\":\"77-66-55-44-33-22-11-00\",\"id\":\"led_on_1\",\"command\":\"PUT\",\"address\":\"/3/2\",\"tags\":[{\"tag\":0,\"format\":\"byte\",\"value\":\"01\"}]}",
@@ -64,14 +64,14 @@
         "y": 126.25,
         "wires": [
             [
-                "3e057e47.5a7ec2"
+                "6fc4a724.b5b028"
             ]
         ]
     },
     {
-        "id": "c8ba34be.f56728",
+        "id": "6b2a80f9.18ed18",
         "type": "inject",
-        "z": "c6d89d06.5920f",
+        "z": "92e1ac59.e47078",
         "name": "LED OFF (77-66-55-44-33-22-11-00)",
         "topic": "",
         "payload": "{\"mac\":\"77-66-55-44-33-22-11-00\",\"id\":\"led_off_1\",\"command\":\"PUT\",\"address\":\"/3/2\",\"tags\":[{\"tag\":0,\"format\":\"byte\",\"value\":\"00\"}]}",
@@ -84,14 +84,14 @@
         "y": 165,
         "wires": [
             [
-                "3e057e47.5a7ec2"
+                "6fc4a724.b5b028"
             ]
         ]
     },
     {
-        "id": "b108ec89.42f84",
+        "id": "ea75a621.087868",
         "type": "debug",
-        "z": "c6d89d06.5920f",
+        "z": "92e1ac59.e47078",
         "name": "Results",
         "active": true,
         "tosidebar": true,
@@ -103,9 +103,9 @@
         "wires": []
     },
     {
-        "id": "f24254f3.f27428",
+        "id": "45c6981.3bbe268",
         "type": "inject",
-        "z": "c6d89d06.5920f",
+        "z": "92e1ac59.e47078",
         "name": "LED ON (00-11-22-33-44-55-66-77)",
         "topic": "",
         "payload": "{\"mac\":\"00-11-22-33-44-55-66-77\",\"id\":\"led_on_2\",\"command\":\"PUT\",\"address\":\"/3/2\",\"tags\":[{\"tag\":0,\"format\":\"byte\",\"value\":\"01\"}]}",
@@ -118,14 +118,14 @@
         "y": 38,
         "wires": [
             [
-                "3e057e47.5a7ec2"
+                "6fc4a724.b5b028"
             ]
         ]
     },
     {
-        "id": "793d90b2.1e85a",
+        "id": "af823f6.ba6cd4",
         "type": "inject",
-        "z": "c6d89d06.5920f",
+        "z": "92e1ac59.e47078",
         "name": "LED OFF (00-11-22-33-44-55-66-77)",
         "topic": "",
         "payload": "{\"mac\":\"00-11-22-33-44-55-66-77\",\"id\":\"led_off_2\",\"command\":\"PUT\",\"address\":\"/3/2\",\"tags\":[{\"tag\":0,\"format\":\"byte\",\"value\":\"00\"}]}",
@@ -138,29 +138,29 @@
         "y": 76,
         "wires": [
             [
-                "3e057e47.5a7ec2"
+                "6fc4a724.b5b028"
             ]
         ]
     },
     {
-        "id": "158ec6f5.4b6a91",
+        "id": "4885770e.30ee",
         "type": "SmartMesh in",
-        "z": "c6d89d06.5920f",
+        "z": "92e1ac59.e47078",
         "name": "",
         "subscriptionType": "data",
         "smartMeshManager": "ee6b7dce.0f8d9",
         "x": 287.5,
-        "y": 317.5,
+        "y": 304.5,
         "wires": [
             [
-                "b2986a8f.d9ad7"
+                "54fcf07a.bf08a"
             ]
         ]
     },
     {
-        "id": "f93ecaa3.027ad8",
+        "id": "36e2a78c.1953e8",
         "type": "SmartMesh in",
-        "z": "c6d89d06.5920f",
+        "z": "92e1ac59.e47078",
         "name": "",
         "subscriptionType": "result",
         "smartMeshManager": "ee6b7dce.0f8d9",
@@ -168,14 +168,14 @@
         "y": 236.5,
         "wires": [
             [
-                "b108ec89.42f84"
+                "ea75a621.087868"
             ]
         ]
     },
     {
-        "id": "3e057e47.5a7ec2",
+        "id": "6fc4a724.b5b028",
         "type": "SmartMesh out",
-        "z": "c6d89d06.5920f",
+        "z": "92e1ac59.e47078",
         "name": "",
         "smartMeshManager": "ee6b7dce.0f8d9",
         "x": 484.5,
@@ -183,11 +183,41 @@
         "wires": []
     },
     {
+        "id": "f45bdede.d01c98",
+        "type": "debug",
+        "z": "92e1ac59.e47078",
+        "name": "Notifications",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 489,
+        "y": 393,
+        "wires": []
+    },
+    {
+        "id": "97ac2d0d.43742",
+        "type": "SmartMesh in",
+        "z": "92e1ac59.e47078",
+        "name": "",
+        "subscriptionType": "notification",
+        "smartMeshManager": "ee6b7dce.0f8d9",
+        "x": 288,
+        "y": 374.5,
+        "wires": [
+            [
+                "f45bdede.d01c98"
+            ]
+        ]
+    },
+    {
         "id": "ee6b7dce.0f8d9",
         "type": "SmartMesh manager",
         "z": "",
         "enabled": true,
         "serialport": "/dev/DC2274A-A.API",
+        "identifier": "manager1",
         "redirectSmartMeshManagerLog": true
     }
 ]

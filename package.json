@@ -1,7 +1,7 @@
 {
   "name": "node-red-contrib-smartmesh",
-  "version": "0.3.1",
-  "description": "Node-RED nodes for Analog Devices' SmartMesh® IP Motes and Manager",
+  "version": "1.0.0",
+  "description": "Node-RED nodes for Analog Devices' SmartMesh IP™ Motes and Manager",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   ],
   "homepage": "https://github.com/CANDY-LINE/node-red-contrib-smartmesh#readme",
   "keywords": [
+    "node-red",
     "smartmesh",
     "dust networks",
     "Analog Devices",

@@ -87,7 +87,7 @@ export class SmartMeshClientProxy {
         mac: message.mac,
       };
       if (message.event !== 'notification') {
-        this.motes[message.mac].joinedAt = Date.now();
+        this.motes[message.mac].joinedAt = message.timestamp;
         this.motes[message.mac].active = true;
         this.fireMoteConnected();
         return;
@@ -96,14 +96,14 @@ export class SmartMeshClientProxy {
     switch (message.type) {
       case 'eventMoteJoin':
         if (this.motes[message.mac]) {
-          this.motes[message.mac].joinedAt = Date.now();
+          this.motes[message.mac].joinedAt = message.timestamp;
           this.motes[message.mac].active = true;
         }
         break;
       case 'eventMoteLost':
         if (this.motes[message.mac]) {
           this.motes[message.mac].active = false;
-          this.motes[message.mac].lostAt = Date.now();
+          this.motes[message.mac].lostAt = message.timestamp;
         }
         break;
     }
@@ -111,7 +111,8 @@ export class SmartMeshClientProxy {
   }
 
   getActiveMotes() {
-    return Object.keys(this.motes).filter(mac => this.motes[mac].active);
+    return Object.keys(this.motes).filter(mac => this.motes[mac].active)
+      .map(mac => Object.assign({}, this.motes[mac]));
   }
 
   getActiveMoteCount() {
@@ -164,6 +165,7 @@ export class SmartMeshClientProxy {
       let procs = lines.map((line) => {
         try {
           let message = JSON.parse(line);
+          message.timestamp = Date.now();
           if (message.event === 'error') {
             this.bus.emit('error-event', message);
           } else {
