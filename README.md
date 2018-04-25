@@ -36,7 +36,7 @@ You can find the active (online) motes from the manager dialog while monitoring 
 
 ![DC2274A-A SmartMesh IP™ USB Manager Dialog](images/usb-manager-dialog.jpg)
 
-## SmartMesh IP Document
+## SmartMesh IP™ Document
 
 See [SmartMesh IP™ Tools Guide(PDF)](http://cds.linear.com/docs/en/software-and-simulation/SmartMesh_IP_Tools_Guide.pdf) for SmartMesh IP™ technical details.
 
@@ -68,6 +68,8 @@ Then restart Node-RED process.
 
 ### Uninstallation
 
+The following command uninstalls SmartMesh SDK python executables/libraries as well as this node package.
+
 ```
 cd ~/.node-red
 sudo npm uninstall --unsafe-perm node-red-contrib-smartmesh
@@ -97,6 +99,8 @@ cd $(npm -g root)/candy-red
 sudo npm uninstall --unsafe-perm node-red-contrib-smartmesh
 ```
 
+The above command uninstalls SmartMesh SDK python executables/libraries as well as this node package.
+
 # Appendix
 
 ## How to build
@@ -113,11 +117,14 @@ $ NODE_ENV=development npm pack
 ```
 $ rm -fr node_modules; \
   rm -f npm-shrinkwrap.json; \
-  nodenv local 8.10.0; \
+  nodenv local 8.11.1; \
   npm install;npm run freeze
 ```
 
 # Revision History
+* 1.0.1
+  - Update README
+  - Remove .pyc files on running `clean` task
 
 * 1.0.0
   - Initial General Availability Release

@@ -49,6 +49,7 @@ gulp.task('clean', () => {
     './dist',
     '!node_modules/**/*',
     './*.tgz',
+    './**/*.pyc',
   ]);
 });
 
