@@ -122,6 +122,9 @@ $ rm -fr node_modules; \
 ```
 
 # Revision History
+* 1.0.1
+  - Update README
+  - Remove .pyc files on running `clean` task
 
 * 1.0.0
   - Initial General Availability Release
