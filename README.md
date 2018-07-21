@@ -113,6 +113,10 @@ $ NODE_ENV=development npm pack
 ```
 
 # Revision History
+* 1.1.0
+  - Remove shrinkwrap file
+  - Fix an issue where an error was swallowed on receiving 'close' event
+
 * 1.0.1
   - Update README
   - Remove .pyc files on running `clean` task
