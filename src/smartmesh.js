@@ -87,7 +87,7 @@ export default function(RED) {
         delete smartMeshClients[this.serialport];
         this.client.shutdown().then(() => {
           done();
-        }).cath((err) => {
+        }).catch((err) => {
           this.log(err);
           done();
         });
