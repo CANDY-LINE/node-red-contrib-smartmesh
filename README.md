@@ -80,7 +80,7 @@ sudo npm uninstall --unsafe-perm node-red-contrib-smartmesh
 Use `Manage Palette` dialog in the browser editor or run the following commands:
 ```
 sudo pip install pyserial
-cd $(npm -g root)/candy-red
+cd /opt/candy-red/.node-red
 sudo npm install --unsafe-perm node-red-contrib-smartmesh
 ```
 
@@ -95,7 +95,7 @@ sudo systemctl restart candy-red
 `Manage Palette` dialog should work for uninstallation as well as the following commands:
 
 ```
-cd $(npm -g root)/candy-red
+cd /opt/candy-red/.node-red
 sudo npm uninstall --unsafe-perm node-red-contrib-smartmesh
 ```
 
