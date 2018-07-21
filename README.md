@@ -112,15 +112,6 @@ $ NODE_ENV=development npm run build
 $ NODE_ENV=development npm pack
 ```
 
-### Shrinkwrap
-
-```
-$ rm -fr node_modules; \
-  rm -f npm-shrinkwrap.json; \
-  nodenv local 8.11.1; \
-  npm install;npm run freeze
-```
-
 # Revision History
 * 1.0.1
   - Update README
