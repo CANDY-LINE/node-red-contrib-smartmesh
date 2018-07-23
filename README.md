@@ -80,7 +80,7 @@ sudo npm uninstall --unsafe-perm node-red-contrib-smartmesh
 Use `Manage Palette` dialog in the browser editor or run the following commands:
 ```
 sudo pip install pyserial
-cd $(npm -g root)/candy-red
+cd /opt/candy-red/.node-red
 sudo npm install --unsafe-perm node-red-contrib-smartmesh
 ```
 
@@ -95,7 +95,7 @@ sudo systemctl restart candy-red
 `Manage Palette` dialog should work for uninstallation as well as the following commands:
 
 ```
-cd $(npm -g root)/candy-red
+cd /opt/candy-red/.node-red
 sudo npm uninstall --unsafe-perm node-red-contrib-smartmesh
 ```
 
@@ -112,16 +112,11 @@ $ NODE_ENV=development npm run build
 $ NODE_ENV=development npm pack
 ```
 
-### Shrinkwrap
-
-```
-$ rm -fr node_modules; \
-  rm -f npm-shrinkwrap.json; \
-  nodenv local 8.11.1; \
-  npm install;npm run freeze
-```
-
 # Revision History
+* 1.1.0
+  - Remove shrinkwrap file
+  - Fix an issue where an error was swallowed on receiving 'close' event
+
 * 1.0.1
   - Update README
   - Remove .pyc files on running `clean` task
