@@ -63,7 +63,7 @@ export class SmartMeshClientProxy {
 
   send(message) {
     if (!this.isConnected()) {
-      return Promise.reject('oapclient_proxy.py is disconnected');
+      return Promise.reject('protocol_client_proxy.py is disconnected');
     }
     if (message) {
       return new Promise((resolve) => {
@@ -126,7 +126,7 @@ export class SmartMeshClientProxy {
   start() {
     // This function call may throw an exception on error
     this.cproc = cproc.spawn(`${PYTHON_EXEC}`,
-      [`${DEPS_PYTHON_PATH}/oapclient_proxy.py`, this.serialport],
+      [`${DEPS_PYTHON_PATH}/protocol_client_proxy.py`, this.serialport],
       {
         cwd: process.cwd(),
         env: process.env,
