@@ -249,7 +249,8 @@ class OAPClientProxy(object):
         sys.exit(16)
 
     def handle_oap_data(self, mac, notif):
-        """Called when the OAP dispatcher can succesfully parse received data as OAP
+        """Called when the OAP dispatcher can succesfully parse
+           received data as OAP
         """
         mac_address = self.format_mac_address(mac)
         try:
