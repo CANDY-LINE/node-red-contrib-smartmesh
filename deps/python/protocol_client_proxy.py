@@ -77,7 +77,7 @@ class OAPClientProxy(object):
             })
             sys.exit(1)
 
-        self.oap_clients = {}
+        self.protocol_clients = {}
         self.oap_dispatch = OAPDispatcher.OAPDispatcher()
         self.oap_dispatch.register_notif_handler(self.handle_oap_data)
 
@@ -180,15 +180,15 @@ class OAPClientProxy(object):
                     'result': oap_resp['result']
                 })
 
-            if mac not in self.oap_clients:
-                self.oap_clients[mac] = OAPClient.OAPClient(
+            if mac not in self.protocol_clients:
+                self.protocol_clients[mac] = OAPClient.OAPClient(
                     self.to_byte_array_mac(mac),
                     self.connector.dn_sendData,
                     self.oap_dispatch
                 )
 
             # send packet
-            self.oap_clients[mac].send(
+            self.protocol_clients[mac].send(
                 # command
                 self.to_oap_command(message),
                 # address
