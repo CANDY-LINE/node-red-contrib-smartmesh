@@ -119,6 +119,7 @@ class OAPSupport(object):
     def send(self, mac, request_id, message):
         def oap_callback(mac_address, oap_resp):
             self.emit_event_func({
+                'protocol': 'oap',
                 'event': 'result',
                 'id': request_id,
                 'mac': ProtocolUtils.format_mac_address(mac_address),
@@ -154,11 +155,13 @@ class OAPSupport(object):
             message = notif._asdict()
             message['event'] = 'data'
             message['mac'] = mac_address
+            message['protocol'] = 'oap'
             self.send_message_func(message)
         except Exception as err:
             self.send_message_func({
                 'event': 'error',
                 'mac': mac_address,
+                'protocol': 'oap',
                 'message':
                     'failed to handle OAP data, error ({0})\n{1}'
                     .format(
@@ -207,6 +210,14 @@ class OAPSupport(object):
             value = int(value, 16)
         return OAPMessage.__dict__[OAPSupport.TLV_FORMATS[format]](
             t=int(tag['tag']), v=value)
+
+
+class RawSupport(object):
+    def __init__(self):
+        pass
+
+    def send(self, mac, request_id, message):
+        pass
 
 
 class ProtocolClientProxy(object):
@@ -266,6 +277,7 @@ class ProtocolClientProxy(object):
         except Exception as err:
             self.send_message({
                 'event': 'error',
+                'protocol': 'system',
                 'message':
                     'failed to emit an event at {0}, error ({1})\n{2}'
                     .format(
@@ -279,15 +291,17 @@ class ProtocolClientProxy(object):
     def process_message(self, message_json):
         """Expected message_json structure:
             {
+                # Protocol => oap, raw
+                "protocol": "oap",
                 # destination device mac address (required for send)
                 # either : or - can be a deimiter
                 "mac": "11:22:33:44:55:66",
-                # OAP command
+                # OAP command for oap protocol
                 "command": "PUT",
-                # OAP Object Addresses (string or array)
+                # OAP Object Addresses (string or array) for oap protocol
                 "address": "/3/2",
                 "address": [2,3],
-                # OAP Value
+                # OAP Value for oap protocol
                 "tags": [
                     {
                         "tag": 0,
@@ -304,6 +318,7 @@ class ProtocolClientProxy(object):
         except Exception as err:
             self.send_message({
                 'event': 'error',
+                'protocol': 'system',
                 'message':
                     'failed to parse the message:"{0}", error ({1})\n{2}'
                     .format(
@@ -326,6 +341,7 @@ class ProtocolClientProxy(object):
             self.send_message({
                 'event': 'error',
                 'mac': mac,
+                'protocol': 'system',
                 'message':
                     'failed to send the message:"{0}", error ({1})\n{2}'
                     .format(
@@ -353,7 +369,8 @@ class ProtocolClientProxy(object):
         """
         message = {
             'event': 'notification',
-            'type': notifName
+            'type': notifName,
+            'protocol': 'system',
         }
         try:
             message['mac'] = ProtocolUtils.format_mac_address(
