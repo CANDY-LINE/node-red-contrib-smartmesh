@@ -87,7 +87,7 @@ class ProtocolUtils(object):
 
     @staticmethod
     def resolve_protocol_type(message):
-        return 'oap'
+        return message['protocol'] if 'protocol' in message else 'oap'
 
 
 class OAPSupport(object):
