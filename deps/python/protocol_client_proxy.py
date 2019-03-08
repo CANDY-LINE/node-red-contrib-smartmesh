@@ -98,7 +98,7 @@ class OAPSupport(object):
         'string': 'TLVString'
     }
 
-    def __init__(self, subscriber,
+    def __init__(self,
                  send_data_func,
                  send_message_func,
                  emit_event_func):
@@ -107,14 +107,11 @@ class OAPSupport(object):
         self.emit_event_func = emit_event_func
         self.oap_dispatch = OAPDispatcher.OAPDispatcher()
         self.oap_dispatch.register_notif_handler(self.handle_oap_data)
-        subscriber.subscribe(
-            notifTypes=[
-               IpMgrSubscribe.IpMgrSubscribe.NOTIFDATA,
-            ],
-            fun=self.oap_dispatch.dispatch_pkt,
-            isRlbl=False,
-        )
         self.oap_clients = {}
+        self.handle_packet = self.oap_dispatch.dispatch_pkt
+
+    def is_supported(self, notif_type, data_notif):
+        return data_notif.dstPort == OAPMessage.OAP_PORT
 
     def send(self, mac, request_id, message):
         def oap_callback(mac_address, oap_resp):
@@ -213,8 +210,22 @@ class OAPSupport(object):
 
 
 class RawSupport(object):
-    def __init__(self):
-        pass
+    def __init__(self,
+                 send_data_func,
+                 send_message_func,
+                 emit_event_func):
+        self.send_data_func = send_data_func
+        self.send_message_func = send_message_func
+        self.emit_event_func = emit_event_func
+
+    def is_supported(self, notif_type, data_notif):
+        return data_notif.dstPort != OAPMessage.OAP_PORT
+
+    def handle_packet(self, notif_type, data_notif):
+        print('[notif_type]')
+        print(notif_type)
+        print('[data_notif]')
+        print(data_notif)
 
     def send(self, mac, request_id, message):
         pass
@@ -259,13 +270,27 @@ class ProtocolClientProxy(object):
             fun=self.on_disconnected,
             isRlbl=True,
         )
-
+        self.subscriber.subscribe(
+            notifTypes=[
+               IpMgrSubscribe.IpMgrSubscribe.NOTIFDATA,
+            ],
+            fun=self.dispatch_pkt,
+            isRlbl=False,
+        )
         self.supported_protocols = {
-            'oap': OAPSupport(self.subscriber,
-                              self.connector.dn_sendData,
+            'oap': OAPSupport(self.connector.dn_sendData,
                               self.send_message,
-                              self.emit_event)
+                              self.emit_event),
+            'raw': RawSupport(self.connector.dn_sendData,
+                              self.send_message,
+                              self.emit_event),
         }
+
+    def dispatch_pkt(self, notif_type, data_notif):
+        for p in self.supported_protocols.values():
+            if p.is_supported(notif_type, data_notif):
+                p.handle_packet(notif_type, data_notif)
+                break
 
     def send_message(self, message):
         print(json.dumps(message))
