@@ -222,10 +222,37 @@ class RawSupport(object):
         return data_notif.dstPort != OAPMessage.OAP_PORT
 
     def handle_packet(self, notif_type, data_notif):
-        print('[notif_type]')
-        print(notif_type)
-        print('[data_notif]')
-        print(data_notif)
+        data_notif = data_notif._asdict()
+        mac_address = ProtocolUtils.format_mac_address(
+            data_notif['macAddress'])
+        try:
+            message = {
+                'event': 'data',
+                'notifType': notif_type,
+                'mac': mac_address,
+                'protocol': 'raw',
+                'timestamp': data_notif['utcSecs'],
+                'srcPort': data_notif['srcPort'],
+                'dstPort': data_notif['dstPort'],
+                'payload': {
+                    'type': 'Buffer',
+                    'data': data_notif['data']
+                }
+            }
+            self.send_message_func(message)
+        except Exception as err:
+            self.send_message_func({
+                'event': 'error',
+                'mac': mac_address,
+                'protocol': 'raw',
+                'message':
+                    'failed to handle Raw packet data, error ({0})\n{1}'
+                    .format(
+                        type(err),
+                        err
+                    )
+            })
+            sys.exit(99)
 
     def send(self, mac, request_id, message):
         pass
