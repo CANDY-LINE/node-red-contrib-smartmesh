@@ -175,11 +175,27 @@ Always <code>raw</code> for Raw data protocol.
 </dd>
 <dt>mac<span class="property-type">string</span></dt>
 <dd>
-the destination mote(SmartMesh end device) mac address e.g. <code>11:22:33:44:55:66</code> or <code>11-22-33-44-55-66</code>
+The destination mote(SmartMesh end device) mac address e.g. <code>11:22:33:44:55:66</code> or <code>11-22-33-44-55-66</code>
+</dd>
+<dt>dstPort<span class="property-type">int</span></dt>
+<dd>
+The destination port (mandatory). Unsigned 32-bit int.
+</dd>
+<dt>srcPort<span class="property-type">int</span></dt>
+<dd>
+The source port. <code>dstPort</code> is used when the value is missing. Unsigned 32-bit int.
+</dd>
+<dt>priority<span class="property-type">int</span></dt>
+<dd>
+The message priority. 0 for low (default), 1 for mid, and 2 for high.
+</dd>
+<dt>options<span class="property-type">int</span></dt>
+<dd>
+The message options if any. unsigned 8bit int. 0 by default.
 </dd>
 <dt>payload<span class="property-type">string, int Array, or Buffer</span></dt>
 <dd>
-The packet payload to be sent to the destination mote.
+The packet payload to be sent to the destination mote. The string value is expected to be a hex string.
 </dd>
 </dl>
 </p>

@@ -259,7 +259,12 @@ class RawSupport(object):
     def send(self, mac, message):
         try:
             payload = message['payload']
-            if 'type' in payload and payload['type'] == 'Buffer':
+            if isinstance(payload, basestring):
+                # expects a hex string
+                payload = [
+                    int(payload[i:i+2], 16) for i in range(0, len(payload), 2)
+                ]
+            elif 'type' in payload and payload['type'] == 'Buffer':
                 # Translate a Node.js Buffer object into an int array
                 payload = payload['data']
             dst_port = message['dstPort']
