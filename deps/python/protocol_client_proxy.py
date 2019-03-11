@@ -258,10 +258,10 @@ class RawSupport(object):
 
     def send(self, mac, message):
         try:
-            data = message['data']
-            if 'type' in data and data['type'] == 'Buffer':
+            payload = message['payload']
+            if 'type' in payload and payload['type'] == 'Buffer':
                 # Translate a Node.js Buffer object into an int array
-                data = data['data']
+                payload = payload['data']
             dst_port = message['dstPort']
             priority = message['priority'] if 'priority' in message else 0
             src_port = message['srcPort'] if 'srcPort' in message else dst_port
@@ -278,7 +278,7 @@ class RawSupport(object):
                 # options (1-byte int)
                 options,
                 # int array to be sent
-                data
+                payload
             )
         except Exception as err:
             self.send_message_func({
