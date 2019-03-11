@@ -128,7 +128,7 @@ export class SmartMeshClientProxy {
     this.cproc = cproc.spawn(`${PYTHON_EXEC}`,
       [`${DEPS_PYTHON_PATH}/protocol_client_proxy.py`, this.serialport],
       {
-        cwd: process.cwd(),
+        cwd: `${DEPS_PYTHON_PATH}`,
         env: process.env,
         stdio: ['pipe', 'pipe', this.redirectSmartMeshManagerLog ? process.stderr : 'ignore']
       }
