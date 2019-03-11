@@ -113,7 +113,9 @@ class OAPSupport(object):
     def is_supported(self, notif_type, data_notif):
         return data_notif.dstPort == OAPMessage.OAP_PORT
 
-    def send(self, mac, request_id, message):
+    def send(self, mac, message):
+        request_id = message['id'] if 'id' in message else None
+
         def oap_callback(mac_address, oap_resp):
             self.emit_event_func({
                 'protocol': 'oap',
@@ -254,7 +256,7 @@ class RawSupport(object):
             })
             sys.exit(99)
 
-    def send(self, mac, request_id, message):
+    def send(self, mac, message):
         pass
 
 
@@ -404,10 +406,9 @@ class ProtocolClientProxy(object):
         mac = ''
         try:
             mac = ProtocolUtils.format_mac_address(message['mac'])
-            request_id = message['id'] if 'id' in message else None
             self.supported_protocols[
                 ProtocolUtils.resolve_protocol_type(message)
-            ].send(mac, request_id, message)
+            ].send(mac, message)
         except Exception as err:
             self.send_message({
                 'event': 'error',
