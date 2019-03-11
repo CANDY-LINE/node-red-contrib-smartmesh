@@ -173,6 +173,7 @@ export class SmartMeshClientProxy {
             this.processEvent(message);
           }
         } catch (_) {
+          this.log(`[SmartMesh:INFO] ${line}`);
           return;
         }
       });
