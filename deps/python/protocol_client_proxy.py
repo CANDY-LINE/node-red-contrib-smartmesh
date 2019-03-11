@@ -287,6 +287,9 @@ class ProtocolClientProxy(object):
         }
 
     def dispatch_pkt(self, notif_type, data_notif):
+        """A callback function invoked by a subscriber
+           on receiving a packet data.
+        """
         for p in self.supported_protocols.values():
             if p.is_supported(notif_type, data_notif):
                 p.handle_packet(notif_type, data_notif)
