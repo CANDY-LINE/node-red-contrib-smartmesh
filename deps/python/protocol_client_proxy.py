@@ -334,7 +334,18 @@ class ProtocolClientProxy(object):
                         "value": "00bb11" # int array or hex string (numeric)
                     },
                     ...
-                ]
+                ],
+                # Raw
+                "notifType": "notifData",
+                # Raw
+                "srcPort": 60000,
+                # Raw
+                "dstPort": 60000,
+                # Raw
+                "payload": {
+                    "type": "Buffer",
+                    "data": []
+                },
             }
         """
         message = None
