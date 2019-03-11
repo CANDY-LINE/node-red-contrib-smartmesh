@@ -165,7 +165,6 @@ export class SmartMeshClientProxy {
       let procs = lines.map((line) => {
         try {
           let message = JSON.parse(line);
-          message.timestamp = Date.now();
           if (message.event === 'error') {
             this.bus.emit('error-event', message);
           } else {

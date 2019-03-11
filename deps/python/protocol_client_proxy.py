@@ -24,6 +24,8 @@ import logging
 import logging.handlers
 import binascii
 import json
+import time
+import datetime
 
 from SmartMeshSDK import sdk_version
 from SmartMeshSDK.utils import AppUtils, FormatUtils
@@ -89,6 +91,25 @@ class ProtocolUtils(object):
     def resolve_protocol_type(message):
         return message['protocol'] if 'protocol' in message else 'oap'
 
+    @staticmethod
+    def to_iso_date_string(utc_secs, utc_usecs):
+        """Translate a given unix time into ISO format
+        """
+        return datetime.datetime.utcfromtimestamp(
+            utc_secs + utc_usecs / 1000000.0
+        ).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+
+    @staticmethod
+    def to_iso_date_string_from_unix_time(unix_time):
+        """Translate a given unix time into ISO 8601 format
+        """
+        return datetime.datetime.utcfromtimestamp(
+            unix_time).strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+
+    @staticmethod
+    def iso_now_date_string():
+        return ProtocolUtils.to_iso_date_string_from_unix_time(time.time())
+
 
 class OAPSupport(object):
     TLV_FORMATS = {
@@ -122,6 +143,7 @@ class OAPSupport(object):
                 'event': 'result',
                 'id': request_id,
                 'mac': ProtocolUtils.format_mac_address(mac_address),
+                'timestamp': ProtocolUtils.iso_now_date_string(),
                 'command': message['command'],
                 'result': oap_resp['result']
             })
@@ -155,12 +177,19 @@ class OAPSupport(object):
             message['event'] = 'data'
             message['mac'] = mac_address
             message['protocol'] = 'oap'
+            packet_timestamp = message['packet_timestamp']
+            message['packet_timestamp'] = \
+                ProtocolUtils.to_iso_date_string(
+                packet_timestamp[0], packet_timestamp[1])
+            received_timestamp = message['received_timestamp']
+            del message['received_timestamp']
             self.send_message_func(message)
         except Exception as err:
             self.send_message_func({
                 'event': 'error',
                 'mac': mac_address,
                 'protocol': 'oap',
+                'timestamp': ProtocolUtils.iso_now_date_string(),
                 'message':
                     'failed to handle OAP data, error ({0})\n{1}'
                     .format(
@@ -233,13 +262,16 @@ class RawSupport(object):
                 'notifType': notif_type,
                 'mac': mac_address,
                 'protocol': 'raw',
-                'timestamp': data_notif['utcSecs'],
+                'timestamp': ProtocolUtils.iso_now_date_string(),
+                'packet_timestamp':
+                    ProtocolUtils.to_iso_date_string(
+                    data_notif['utcSecs'], data_notif['utcUsecs']),
                 'srcPort': data_notif['srcPort'],
                 'dstPort': data_notif['dstPort'],
                 'payload': {
                     'type': 'Buffer',
                     'data': data_notif['data']
-                }
+                     }
             }
             self.send_message_func(message)
         except Exception as err:
@@ -247,6 +279,7 @@ class RawSupport(object):
                 'event': 'error',
                 'mac': mac_address,
                 'protocol': 'raw',
+                'timestamp': ProtocolUtils.iso_now_date_string(),
                 'message':
                     'failed to handle Raw packet data, error ({0})\n{1}'
                     .format(
@@ -290,6 +323,7 @@ class RawSupport(object):
                 'event': 'error',
                 'mac': mac,
                 'protocol': 'raw',
+                'timestamp': ProtocolUtils.iso_now_date_string(),
                 'message':
                     'failed to send a Raw packet data, error ({0})\n{1}'
                     .format(
@@ -310,6 +344,7 @@ class ProtocolClientProxy(object):
         except Exception as err:
             self.send_message({
                 'event': 'error',
+                'timestamp': ProtocolUtils.iso_now_date_string(),
                 'message':
                     'failed to connect to manager at {0}, error ({1})\n{2}'
                     .format(
@@ -379,6 +414,7 @@ class ProtocolClientProxy(object):
             self.send_message({
                 'event': 'error',
                 'protocol': 'system',
+                'timestamp': ProtocolUtils.iso_now_date_string(),
                 'message':
                     'failed to emit an event at {0}, error ({1})\n{2}'
                     .format(
@@ -431,6 +467,7 @@ class ProtocolClientProxy(object):
             self.send_message({
                 'event': 'error',
                 'protocol': 'system',
+                'timestamp': datetime.datetime.now(),
                 'message':
                     'failed to parse the message:"{0}", error ({1})\n{2}'
                     .format(
@@ -453,6 +490,7 @@ class ProtocolClientProxy(object):
                 'event': 'error',
                 'mac': mac,
                 'protocol': 'system',
+                'timestamp': ProtocolUtils.iso_now_date_string(),
                 'message':
                     'failed to send the message:"{0}", error ({1})\n{2}'
                     .format(
@@ -482,6 +520,7 @@ class ProtocolClientProxy(object):
             'event': 'notification',
             'type': notifName,
             'protocol': 'system',
+            'timestamp': ProtocolUtils.iso_now_date_string(),
         }
         try:
             message['mac'] = ProtocolUtils.format_mac_address(
@@ -507,6 +546,7 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print(json.dumps({
             'event': 'error',
+            'timestamp': ProtocolUtils.iso_now_date_string(),
             'message':
                 'The serial port argument and/or MAC address is/are missing'
         }))
