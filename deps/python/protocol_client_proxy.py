@@ -293,6 +293,11 @@ class ProtocolClientProxy(object):
                 break
 
     def send_message(self, message):
+        if logger.isEnabledFor(logging.DEBUG):
+            logger.debug('** send_message ** message:%s' % (
+                json.dumps(message)))
+        # The message object will be processed
+        # by SmartMeshClientProxy.processEvent().
         print(json.dumps(message))
         sys.stdout.flush()
 
