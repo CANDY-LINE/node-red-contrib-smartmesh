@@ -257,7 +257,41 @@ class RawSupport(object):
             sys.exit(99)
 
     def send(self, mac, message):
-        pass
+        try:
+            data = message['data']
+            if 'type' in data and data['type'] == 'Buffer':
+                # Translate a Node.js Buffer object into an int array
+                data = data['data']
+            dst_port = message['dstPort']
+            priority = message['priority'] if 'priority' in message else 0
+            src_port = message['srcPort'] if 'srcPort' in message else dst_port
+            options = message['options'] if 'options' in message else 0
+            self.send_data_func(
+                # destination MAC
+                ProtocolUtils.to_byte_array_mac(mac),
+                # priority (0:low,1:mid:2:high)
+                priority,
+                # source port (2-byte int)
+                src_port,
+                # destination port (2-byte int)
+                dst_port,
+                # options (1-byte int)
+                options,
+                # int array to be sent
+                data
+            )
+        except Exception as err:
+            self.send_message_func({
+                'event': 'error',
+                'mac': mac,
+                'protocol': 'raw',
+                'message':
+                    'failed to send a Raw packet data, error ({0})\n{1}'
+                    .format(
+                        type(err),
+                        err
+                    )
+            })
 
 
 class ProtocolClientProxy(object):
