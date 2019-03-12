@@ -88,7 +88,7 @@ Start Global Unicast Command exchNetId
 
 Net stack  1.4.1.10
 state:     Oper
-mac:       00:17:0d:00:00:58:62:55
+mac:       00:11:22:33:44:55:66:77
 moteid:    1
 netid:     1234
 blSwVer:   15
