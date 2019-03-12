@@ -162,6 +162,9 @@ $ NODE_ENV=development npm pack
 ```
 
 # Revision History
+* 2.0.1
+  - Fix an issue where a JSON expression for Buffer object couldn't be translated into a Buffer object.
+
 * 2.0.0
   - Raw data packet is supported as well as OAP.
   - Add a logging configuration file for Python process
