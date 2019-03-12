@@ -428,7 +428,7 @@ class ProtocolClientProxy(object):
     def process_message(self, message_json):
         """Expected message_json structure:
             {
-                # Protocol => oap, raw
+                # Protocol => "oap", "raw"
                 "protocol": "oap",
                 # destination device mac address (required for send)
                 # either : or - can be a deimiter
