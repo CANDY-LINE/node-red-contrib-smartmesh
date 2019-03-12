@@ -259,7 +259,7 @@ class RawSupport(object):
         try:
             message = {
                 'event': 'data',
-                'notifType': notif_type,
+                'type': notif_type,
                 'mac': mac_address,
                 'protocol': 'raw',
                 'timestamp': ProtocolUtils.iso_now_date_string(),
@@ -448,7 +448,7 @@ class ProtocolClientProxy(object):
                     ...
                 ],
                 # Raw
-                "notifType": "notifData",
+                "type": "notifData",
                 # Raw
                 "srcPort": 60000,
                 # Raw
