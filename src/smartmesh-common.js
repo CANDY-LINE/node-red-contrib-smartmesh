@@ -168,6 +168,9 @@ export class SmartMeshClientProxy {
           if (message.event === 'error') {
             this.bus.emit('error-event', message);
           } else {
+            if (message.payload && message.payload.type === 'Buffer') {
+              message.payload = Buffer.from(message.payload.data);
+            }
             this.bus.emit('event', message);
             this.processEvent(message);
           }
