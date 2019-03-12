@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2018 CANDY LINE INC.
+ * Copyright (c) 2019 CANDY LINE INC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ export class SmartMeshClientProxy {
 
   send(message) {
     if (!this.isConnected()) {
-      return Promise.reject('oapclient_proxy.py is disconnected');
+      return Promise.reject('protocol_client_proxy.py is disconnected');
     }
     if (message) {
       return new Promise((resolve) => {
@@ -126,9 +126,9 @@ export class SmartMeshClientProxy {
   start() {
     // This function call may throw an exception on error
     this.cproc = cproc.spawn(`${PYTHON_EXEC}`,
-      [`${DEPS_PYTHON_PATH}/oapclient_proxy.py`, this.serialport],
+      [`${DEPS_PYTHON_PATH}/protocol_client_proxy.py`, this.serialport],
       {
-        cwd: process.cwd(),
+        cwd: `${DEPS_PYTHON_PATH}`,
         env: process.env,
         stdio: ['pipe', 'pipe', this.redirectSmartMeshManagerLog ? process.stderr : 'ignore']
       }
@@ -165,7 +165,6 @@ export class SmartMeshClientProxy {
       let procs = lines.map((line) => {
         try {
           let message = JSON.parse(line);
-          message.timestamp = Date.now();
           if (message.event === 'error') {
             this.bus.emit('error-event', message);
           } else {
@@ -173,6 +172,7 @@ export class SmartMeshClientProxy {
             this.processEvent(message);
           }
         } catch (_) {
+          this.log(`[SmartMesh:INFO] ${line}`);
           return;
         }
       });

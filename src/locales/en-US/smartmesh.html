@@ -1,18 +1,27 @@
 <script type="text/x-red" data-help-name="SmartMesh in">
 <p>
-Emits an <a href="http://cds.linear.com/docs/en/software-and-simulation/SmartMesh_IP_Tools_Guide.pdf">OAP (On-chip Application Protocol)</a> request result or notifications coming from the remote motes to the output port.
+Emits a command request result or notifications coming from the remote motes to the output port.
 </p>
+<p>
+Supported protocols are as follows:
+<ul>
+  <li><code>oap</code> for <a href="http://cds.linear.com/docs/en/software-and-simulation/SmartMesh_IP_Tools_Guide.pdf">OAP (On-chip Application Protocol)</a></li>
+  <li><code>raw</code> for raw data packet</li>
+  <li><code>system</code> for the system reserved messages</li>
+</ul>
+</p>
+
 <p>
 The <code>connected</code> status below the node shows the number of active motes as well as the SmartMesh manager connection status.
 </p>
 <h3>Outputs</h3>
 <p>
 This node emits 2 kinds of message, one is a <b>Response</b> from the mote to the <b>Request</b> sent to <b>SmartMesh out</b> node, and the other is a <b>Notification</b> from the remote motes.
-You can filter the subscription message types on the selection list.
+You can filter the subscription message types on the selection list. You can identify the type of protocol used in the message by <code>protocol</code> property as well.
 </p>
-<h4>Results</h4>
+<h4>OAP Results</h4>
 <p>
-The command result message looks likt this.
+The OAP command result message looks likt this.
 The <code>id</code> is an arbitrary value you can set in the request message, which allows you to associate the request with the result.
 </p>
 <pre>
@@ -23,22 +32,20 @@ The <code>id</code> is an arbitrary value you can set in the request message, wh
   "event":"result",
   "id":"led_on",
   "managerId":"manager-identifier",
-  "timestamp":1234567890
+  "protocol":"oap",
+  "timestamp":"2018-03-19T12:51:57.560123Z"
 }
 </pre>
-<h4>Data</h4>
+<h4>OAP Data</h4>
 <p>
-The Data message contains the temperature value measured in the remote mote.
+The OAP Data message contains the temperature value measured in the remote mote.
 The following message shows the Cellcius temperature is <code>18.70°C</code>, which is computed by the sampled value <code>1870</code> divided by <code>100</code>.
 </p>
 <pre>
 {
   "event":"data",
-  "packet_timestamp":[
-    1025737777,
-    379480
-  ],
-  "received_timestamp":"2018-03-19 12:51:57.560145",
+  "packet_timestamp":"2018-03-19T12:51:57.340Z",
+  "timestamp":"2018-03-19T12:51:57.560123Z",
   "rate":30000,
   "mac":"00-11-22-33-44-55-66-77"
   "sample_size":16,
@@ -51,7 +58,27 @@ The following message shows the Cellcius temperature is <code>18.70°C</code>, w
     5
   ],
   "managerId":"manager-identifier",
-  "timestamp":1234567890
+  "protocol":"oap"
+}
+</pre>
+<h4>Raw Packet Data</h4>
+<p>
+The Raw Packet Data message contains a buffer object representing a plain binary data like this.
+</p>
+<pre>
+{
+  "event":"data",
+  "mac":"00-11-22-33-44-55-66-77"
+  "payload": {
+    "type": "Buffer",
+    "data": [1,2,3]
+  },
+  "srcPort": 60000,
+  "dstPort": 60000,
+  "type": "notifData",
+  "managerId":"manager-identifier",
+  "protocol":"raw",
+  "timestamp":"2018-03-19T12:51:57.560123Z"
 }
 </pre>
 <h4>Notifications</h4>
@@ -65,7 +92,8 @@ The following message shows a new mote is joined.
   "type":"eventMoteJoin",
   "mac":"00-11-22-33-44-55-66-77",
   "managerId":"manager-identifier",
-  "timestamp":1234567890
+  "protocol":"system",
+  "timestamp":"2018-03-19T12:51:57.560123Z"
 }
 </pre>
 <p>
@@ -83,7 +111,14 @@ The available event <code>type</code>s are:
 
 <script type="text/x-red" data-help-name="SmartMesh out">
 <p>
-Processes an <a href="http://cds.linear.com/docs/en/software-and-simulation/SmartMesh_IP_Tools_Guide.pdf">OAP (On-chip Application Protocol)</a> request coming from the input port and generates the request result to the output port.
+Processes a command request coming from the input port and generates the request result to the output port.
+</p>
+<p>
+Supported protocols are as follows:
+<ul>
+  <li><code>oap</code> for <a href="http://cds.linear.com/docs/en/software-and-simulation/SmartMesh_IP_Tools_Guide.pdf">OAP (On-chip Application Protocol)</a></li>
+  <li><code>raw</code> for raw data packet</li>
+</ul>
 </p>
 <p>
 All exceptions and errors are forwarded to <code>catch all</code> node. Use it for handling errors caused by the SmartMesh nodes.
@@ -92,8 +127,13 @@ All exceptions and errors are forwarded to <code>catch all</code> node. Use it f
 The <code>connected</code> status below the node shows the number of active motes as well as the SmartMesh manager connection status.
 </p>
 <h3>Inputs</h3>
+<h4>OAP protocol</h4>
 <p>
 <dl class="message-properties">
+<dt>protocol<span class="property-type">string</span></dt>
+<dd>
+Always <code>oap</code> for OAP protocol.
+</dd>
 <dt>mac<span class="property-type">string</span></dt>
 <dd>
 the destination mote(SmartMesh end device) mac address e.g. <code>11:22:33:44:55:66</code> or <code>11-22-33-44-55-66</code>
@@ -122,6 +162,39 @@ an Array of the Tag Objects. The Tag Object structure is below.
   "value": <i>(hex string or int Array)</i>
 }
 </pre>
+</dd>
+</dl>
+</p>
+<h4>Raw data protocol</h4>
+<p>
+<dl class="message-properties">
+<dt>protocol<span class="property-type">string</span></dt>
+<dd>
+Always <code>raw</code> for Raw data protocol.
+</dd>
+<dt>mac<span class="property-type">string</span></dt>
+<dd>
+The destination mote(SmartMesh end device) mac address e.g. <code>11:22:33:44:55:66</code> or <code>11-22-33-44-55-66</code>
+</dd>
+<dt>dstPort<span class="property-type">int</span></dt>
+<dd>
+The destination port (mandatory). Unsigned 32-bit int.
+</dd>
+<dt>srcPort<span class="property-type">int</span></dt>
+<dd>
+The source port. <code>dstPort</code> is used when the value is missing. Unsigned 32-bit int.
+</dd>
+<dt>priority<span class="property-type">int</span></dt>
+<dd>
+The message priority. 0 for low (default), 1 for mid, and 2 for high.
+</dd>
+<dt>options<span class="property-type">int</span></dt>
+<dd>
+The message options if any. unsigned 8bit int. 0 by default.
+</dd>
+<dt>payload<span class="property-type">string, int Array, or Buffer</span></dt>
+<dd>
+The packet payload to be sent to the destination mote. The string value is expected to be a hex string.
 </dd>
 </dl>
 </p>
