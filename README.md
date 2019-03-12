@@ -51,6 +51,54 @@ See [SmartMesh IP™ Tools Guide(PDF)](http://cds.linear.com/docs/en/software-an
 
 For Windows users, use Docker or Linux box VM to start Node-RED in order to install this node.
 
+# How to change Network ID
+
+In order to change the current Network ID, run the following command manually with the SmartMesh IP Manager CLI. Note that you need to have all motes to join the current network so that the change takes effect to all the connecting motes as well as the IP Manager.
+
+```
+# Connect to the SmartMesh IP USB Manager CLI serial port
+$ screen /dev/DC2274A-A.CLI 9600
+> login user
+> sm
+MAC                MoteId  State Nbrs Links Joins    Age StateTime
+00-11-22-00-00-11-22-33    1     Oper    2    22     1      0    0-00:17:57
+00-11-22-00-00-11-22-44    2     Oper    2    10     1      4    0-00:16:09
+00-11-22-00-00-11-22-55    3     Oper    2    10     1      5    0-00:16:13
+
+Number of motes (max 101): Total 3, Live 3, Joining 0 Blink 0
+
+# Assume that you're changing the Network ID to 1234.
+> exec exchNetId 1234
+Start Global Unicast Command exchNetId
+
+# Restart a remote mote by providing MoteId (shown above list)
+# You can turn it off then on rather than the following command.
+> reset mote 2
+> reset mote 3
+
+# Restart the manager itself
+> reset system
+
+# Login again
+> login user
+
+# Show the renewed Network ID
+> minfo
+
+Net stack  1.4.1.10
+state:     Oper
+mac:       00:17:0d:00:00:58:62:55
+moteid:    1
+netid:     1234
+blSwVer:   15
+ldrSwVer:  0.0.0.0
+board id/rev:0x7/0x7
+UTC time:  1025666424.260 sec
+reset st:  400
+battery:   3295 mV
+temp:      22 C
+```
+
 ## Node-RED users
 
 Run the following commands:
