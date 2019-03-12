@@ -82,9 +82,6 @@ export class SmartMeshClientProxy {
   }
 
   processEvent(message) {
-    if (!message.timestamp) {
-      message.timestamp = new Date().toISOString();
-    }
     if (message.mac && !this.motes[message.mac]) {
       this.motes[message.mac] = {
         mac: message.mac,

@@ -183,6 +183,7 @@ class OAPSupport(object):
                 packet_timestamp[0], packet_timestamp[1])
             received_timestamp = message['received_timestamp']
             del message['received_timestamp']
+            message['timestamp'] = received_timestamp
             self.send_message_func(message)
         except Exception as err:
             self.send_message_func({
