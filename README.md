@@ -23,6 +23,7 @@ The bundled example flow includes the following operations:
 - Getting LED on/off command results
 - Showing temperature data from remote motes
 - Showing SmartMesh network event notifications
+- Sending a binary data packet to a remote mote
 
 ![Example flow](images/example-flow-working.jpg)
 
