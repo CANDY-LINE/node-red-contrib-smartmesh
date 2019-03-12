@@ -161,6 +161,14 @@ $ NODE_ENV=development npm pack
 ```
 
 # Revision History
+* 2.0.0
+  - Raw data packet is supported as well as OAP.
+  - Add a logging configuration file for Python process
+  - The output object structure is modified as of the release. No backward compatibility with 1.x. The changes are as follows.
+     - `timestamp` value is now ISO 8601 date string rather than the unix timestamp.
+     - `received_timestamp` property is gone, use `timestamp` property instead.
+     - `packet_timestamp` value is now ISO 8601 date string rather than the int array.
+
 * 1.1.0
   - Remove shrinkwrap file
   - Fix an issue where an error was swallowed on receiving 'close' event
