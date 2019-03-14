@@ -54,7 +54,7 @@ For Windows users, use Docker or Linux box VM to start Node-RED in order to inst
 
 # How to change Network ID
 
-In order to change the current Network ID, run the following command manually with the SmartMesh IP Manager CLI. Note that you need to have all motes to join the current network so that the change takes effect to all the connecting motes as well as the IP Manager.
+In order to change the current Network ID, run the following command manually with the SmartMesh IP Manager CLI. Note that you need to have all motes join the current network so that the change takes effect to all the connecting motes as well as the IP Manager.
 
 ```
 # Connect to the SmartMesh IP USB Manager CLI serial port
