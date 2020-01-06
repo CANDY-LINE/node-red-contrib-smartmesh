@@ -162,6 +162,10 @@ $ NODE_ENV=development npm pack
 ```
 
 # Revision History
+* 2.1.0
+  - Add support Node.js v12
+  - Drop support Node.js v8
+
 * 2.0.1
   - Fix an issue where a JSON expression for Buffer object couldn't be translated into a Buffer object.
 
